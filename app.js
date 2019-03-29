@@ -2,11 +2,10 @@ console.log('JS loaded')
 
 document.addEventListener('DOMContentLoaded', () => {
   const grid = document.querySelector('.grid')
+  let alienArray = [0,1,2,3,4,5,6,7,8,9,15,16,17,18,19,20,21,22,23,24,30,31,32,33,34,35,36,37,38,39]
   const width = 15
   const squares = []
   let spaceshipIndex = 217
-  let direction = 'right'
-  let alienArray = [0,1,2,3,4,5,6,7,8,15,16,17,18,19,20,21,22,23,30,31,32,33,34,35,36,37,38]
 
   // Create grid
   for(let i = 0; i < width * width; i++) {
@@ -16,14 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  // User spaceship ======================================
+  // User spaceship ========================================================
   // Create user spaceship
   squares[spaceshipIndex].classList.add('spaceship')
-  squares[spaceshipIndex].classList.add('data-direction', direction)
 
-
-
-  // Create function to move user spaceship
+  // Create function to move user spaceship -------------------------------
 
   function moveSpaceship() {
     // find the square with the class of spaceship
@@ -34,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     squares[spaceshipIndex].classList.add('spaceship')
   }
 
-  // Add event listener to move user moveSpaceship
+  // Add event listener to move user moveSpaceship ------------------------
 
   document.addEventListener('keydown', (e) => {
     switch(e.keyCode) {
@@ -56,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
 
-  // Aliens ==============================================
+  // Aliens ================================================================
 
   // Create alien array
   alienArray.forEach(alien => {
@@ -65,17 +61,31 @@ document.addEventListener('DOMContentLoaded', () => {
   })
   console.log(alienArray)
 
+  // Create function to move aliens ----------------------------------------
 
-  // let alienArray = squares[alienArray].classList.add('activeAlien')
-  // }
+  setInterval(() => {
+    // remove the class of activeAlien from that square
+    alienArray.forEach(alien => {
+      squares[alien].classList.remove('activeAlien')
+    })
 
-  // Select aliens -
-  // Hard code first? Should be array index [0] to [10] for top row
-  // Index [15] to [24] for middle row
-  // Index [30] to [44] for bottom row
-  // const alienArray = [
-  //
-  // ]
+    //  overwrite the alien array by adding 1 to each square (move to right)
+    alienArray = alienArray.map(alien => alien + 1)
+
+    // add the class of activealien to each square
+    alienArray.forEach(alien => {
+      squares[alien].classList.add('activeAlien')
+    })
+
+  }, 500)
+
+  //forEach - remove all aliens - alienArray.map.
+  //forEach -
+
+  // use map to mutate alienArray
+
+  // create new array to add active class
+
 
 
   // right: index+1 - if(index%width < width-1)
@@ -100,5 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
+///KEEP BRACKETS BELOW
 
 })
