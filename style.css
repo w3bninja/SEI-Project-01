@@ -1,4 +1,37 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
-  background: dodgerblue;
-  color: white;
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  margin: 0;
+  background-image: url('https://media.giphy.com/media/m04EuXSLhgbWo/giphy.gif');
+  /* background-size: cover; */
+}
+
+.grid {
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  height: 100%;
+  justify-content: center;
+  max-height: 500px;
+  max-width: 500px;
+  border-bottom: 10px solid #00ff00;
+
+}
+
+.grid div {
+  flex-grow: 1;
+  height: 6.66%;
+  width: 6.66%;
+  border: 1px solid white;
+}
+
+.activeAlien {
+  background-color: #00ff00;
 }
