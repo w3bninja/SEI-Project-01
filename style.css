@@ -20,7 +20,7 @@ body {
   justify-content: center;
   max-height: 500px;
   max-width: 500px;
-  border-bottom: 10px solid #00ff00;
+  border-bottom: 10px solid #ff7163;
 
 }
 
@@ -32,7 +32,7 @@ body {
 }
 
 .activeAlien {
-  background-color: #00FF00;
+  background-color: #ff7163;
 }
 
 .grid div.spaceship {
