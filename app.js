@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const width = 15
   const squares = []
   let spaceshipIndex = 217
+  let bulletIndex = 217 // spaceshipIndex - 15 (width)
 
   // Create grid
   for(let i = 0; i < width * width; i++) {
@@ -43,13 +44,29 @@ document.addEventListener('DOMContentLoaded', () => {
         break
       case 39:
         //right
-        if(spaceshipIndex % width < width -1) {
+        if(spaceshipIndex % width < width - 1) {
           spaceshipIndex++
           moveSpaceship()
         }
         break
     }
   })
+
+
+  // User Bullet ===============================================
+  squares[bulletIndex].classList.add('bullet')
+
+
+  // Added event listener on space bar to fire bullet ----------------------
+  // this bit doesn't work --------
+  document.addEventListener('keydown', (e) => {
+    if (e.keyCode === 32) {
+      bulletIndex = squares[bulletIndex - width].classList.add('bullet')
+    }
+  })
+  // bulletIndex = squares[bulletIndex - width].classList.add('bullet')
+
+
 
 
   // Aliens ================================================================
@@ -69,6 +86,10 @@ document.addEventListener('DOMContentLoaded', () => {
       squares[alien].classList.remove('activeAlien')
     })
 
+    // create if statement to determine whether alien array should move down, left or right
+    // alienArray = alienArray.map(alien => alien + 15)
+    // alienArray = alienArray.map(alien => alien - 1)
+
     //  overwrite the alien array by adding 1 to each square (move to right)
     alienArray = alienArray.map(alien => alien + 1)
 
@@ -79,14 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   }, 500)
 
-  //forEach - remove all aliens - alienArray.map.
-  //forEach -
-
-  // use map to mutate alienArray
 
   // create new array to add active class
-
-
 
   // right: index+1 - if(index%width < width-1)
   // down: index+width - if(index+width <= width*width-1)
@@ -100,17 +115,13 @@ document.addEventListener('DOMContentLoaded', () => {
   //
   //  })
 
-  // Loop over array of aliens to remove active class (when moving)
-  // alienArray.forEach(element, index, array) => {
-  // alienArray.classList.remove('activeAlien')
-  // use .push() and .pop() to add and remove active Alien class
 
   // Function - combine the above in a function moveAliens
-  // Use modulus ----> if alienArray modules x === 0, then move down
+  // Use modulus ----> if alienArray modulus x === 0, then move down
 
 
 
 
-///KEEP BRACKETS BELOW
+  // KEEP BRACKETS BELOW
 
 })

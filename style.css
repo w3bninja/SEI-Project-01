@@ -20,7 +20,7 @@ body {
   justify-content: center;
   max-height: 500px;
   max-width: 500px;
-  border-bottom: 10px solid #ff7163;
+  border-bottom: 7px solid #98fb98;
 
 }
 
@@ -37,4 +37,8 @@ body {
 
 .grid div.spaceship {
   background-color: #d3d3d3;
+}
+
+.bullet {
+  background-color: white;
 }
