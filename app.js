@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const width = 15
   const squares = []
   let spaceshipIndex = [217]
-  let bulletIndex = 0// spaceshipIndex - 15 (width)
+  let bulletIndex = spaceshipIndex 
 
   // Create grid
   for(let i = 0; i < width * width; i++) {
@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
   squares[spaceshipIndex].classList.add('spaceship')
 
   // Create function to move user spaceship -------------------------------
-
   function moveSpaceship() {
     // find the square with the class of spaceship
     const spaceship = squares.find(square => square.classList.contains('spaceship'))
@@ -32,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Add event listener to move user moveSpaceship ------------------------
-
   document.addEventListener('keydown', (e) => {
     switch(e.keyCode) {
       case 37:
@@ -54,41 +52,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // User Bullet ===============================================
-  // squares[bulletIndex].classList.add('bullet') -- delete this line?
+  // squares[bullet].classList.add('bullet') -- delete this line?
 
 
   // Added event listener on space bar to fire bullet ----------------------
-
   document.addEventListener('keydown', (e) => {
-    if (e.keyCode === 32) {
-      for (var i = 0; i < 8; i++) {
-      bulletIndex = squares[spaceshipIndex - width].classList.add('bullet')
-    }
+    if(e.keyCode === 32) {
+      setInterval(() => {
+        squares[bulletIndex].classList.remove('bullet')
+        bulletIndex -= width
+        squares[bulletIndex].classList.add('bullet')
+      }, 500)
     }
   })
-
-  // Add set interval to make user bullet move up grid
-  // 
-  // setInterval(() => {
-  //   // remove the class of activeAlien from that square
-  //   alienArray.forEach(alien => {
-  //     squares[alien].classList.remove('activeAlien')
-  //   })
-  //
-  //   // create if statement to determine whether alien array should move down, left or right
-  //   // alienArray = alienArray.map(alien => alien + 15)
-  //   // alienArray = alienArray.map(alien => alien - 1)
-  //
-  //   //  overwrite the alien array by adding 1 to each square (move to right)
-  //   alienArray = alienArray.map(alien => alien + 1)
-  //
-  //   // add the class of activealien to each square
-  //   alienArray.forEach(alien => {
-  //     squares[alien].classList.add('activeAlien')
-  //   })
-  //
-  // }, 500)
-
 
   // Aliens ================================================================
 
