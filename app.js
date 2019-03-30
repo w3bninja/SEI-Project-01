@@ -59,12 +59,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Added event listener on space bar to fire bullet ----------------------
 
-
   document.addEventListener('keydown', (e) => {
     if (e.keyCode === 32) {
+      for (var i = 0; i < 8; i++) {
       bulletIndex = squares[spaceshipIndex - width].classList.add('bullet')
     }
+    }
   })
+
+  // Add set interval to make user bullet move up grid
+  // 
+  // setInterval(() => {
+  //   // remove the class of activeAlien from that square
+  //   alienArray.forEach(alien => {
+  //     squares[alien].classList.remove('activeAlien')
+  //   })
+  //
+  //   // create if statement to determine whether alien array should move down, left or right
+  //   // alienArray = alienArray.map(alien => alien + 15)
+  //   // alienArray = alienArray.map(alien => alien - 1)
+  //
+  //   //  overwrite the alien array by adding 1 to each square (move to right)
+  //   alienArray = alienArray.map(alien => alien + 1)
+  //
+  //   // add the class of activealien to each square
+  //   alienArray.forEach(alien => {
+  //     squares[alien].classList.add('activeAlien')
+  //   })
+  //
+  // }, 500)
 
 
   // Aliens ================================================================
