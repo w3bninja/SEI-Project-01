@@ -7,21 +7,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const squares = []
   let spaceshipIndex = [217]
 
-
-  // Create grid
+  // Create grid --------------------------------------------------------------
   for(let i = 0; i < width * width; i++) {
     const square = document.createElement('div')
     squares.push(square)
     grid.appendChild(square)
   }
 
-
-  // USER SPACESHIP ========================================================
+  // USER SPACESHIP ===========================================================
   // Create user spaceship
 
   squares[spaceshipIndex].classList.add('spaceship')
 
-  // Create function to move user spaceship -------------------------------
+  // Create function to move user spaceship ----------------------------------
   function moveSpaceship() {
     // find the square with the class of spaceship
     const spaceship = squares.find(square => square.classList.contains('spaceship'))
@@ -31,8 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     squares[spaceshipIndex].classList.add('spaceship')
   }
 
-
-  // Add event listener to move user moveSpaceship ------------------------
+  // Add event listener to move user moveSpaceship ---------------------------
   document.addEventListener('keydown', (e) => {
     switch(e.keyCode) {
       case 37:
@@ -52,8 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 
-  // USER BULLET ===============================================
-  // Add event listener on space bar to fire bullet ----------------------
+  // USER BULLET ==============================================================
+  // Add event listener on space bar to fire bullet ---------------------------
   document.addEventListener('keydown', (e) => {
     let bulletIndex = spaceshipIndex
     if(e.keyCode === 32) {
@@ -65,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 
-  // ALIENS ================================================================
+  // ALIENS ===================================================================
   // Create alien array
   alienArray.forEach(alien => {
     console.log('alien array foreach', squares[alien])
@@ -73,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
   console.log(alienArray)
 
-  // Create function to move aliens ----------------------------------------
+  // Create function to move aliens -------------------------------------------
   function moveAliens() {
     setInterval(() => {
       // Remove the class of activeAlien from that square
@@ -81,7 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
         squares[alien].classList.remove('activeAlien')
       })
       // create if statement to determine whether alien array should move down, left or right
-      // alienArray = alienArray.map(alien => alien + 15)
       // alienArray = alienArray.map(alien => alien - 1)
 
       //  overwrite the alien array by adding 1 to each square (move to right)
@@ -93,17 +89,101 @@ document.addEventListener('DOMContentLoaded', () => {
         squares[alien].classList.add('activeAlien')
       })
 
+      // if aliens hit right of grid, move down and left
+      // alienArray = alienArray.map(alien => alien + 15)
+      // alienArray = alienArray.map(alien => alien - 1)
+
+      //else if aliens hit left o
+
     }, 500)
   }
 
   moveAliens()
 
-  // create new array to add active class
+  // ALIEN DROP BOMB Function -------------------------------------------------
+  // Loop through alien array (forEach) and at random (see whack a mole homework (but use 30 --> amount of aliens) make aliens drop bombs at set interval --> similar to spaceship missile but on set interval, not event listener)
 
-  // right: index+1 - if(index%width < width-1)
-  // down: index+width - if(index+width <= width*width-1)
-  // left: index-1 - if(index%width > 0)
-  // up: index-width - if(index-width >= 0)
+  // Set bomb to drop every 2 seconds (by calling alien bomb function)
+  const alienBombId = setInterval(alienBomb, 2000)
+
+  function alienBomb() {
+    // setInterval(() => {
+    let randomIndex = Math.floor(Math.random() * 30) // create random number between 30-39 so only bottom array of aliens drop bombs?
+    let bombIndex = alienArray[randomIndex]
+    setInterval(() => {
+      squares[bombIndex].classList.remove('bomb')
+      bombIndex += width
+      squares[bombIndex].classList.add('bomb')
+    }, 500)
+    // }, 2000)
+  }
+
+  alienBomb()
+
+
+  // function moveAliensDown() {
+  //   setInterval(() => {
+  //     // Remove the class of activeAlien from that square
+  //     alienArray.forEach(alien => {
+  //       squares[alien].classList.remove('activeAlien')
+  //     })
+  //     // create if statement to determine whether alien array should move down, left or right
+  //     // alienArray = alienArray.map(alien => alien - 1)
+  //
+  //     //  overwrite the alien array by adding 1 to each square (move to right)
+  //
+  //     alienArray = alienArray.map(alien => alien + width)
+  //
+  //     // add the class of activealien to each square
+  //     alienArray.forEach(alien => {
+  //       squares[alien].classList.add('activeAlien')
+  //     })
+  //
+  //     // if aliens hit right of grid, move down and left
+  //     // alienArray = alienArray.map(alien => alien + 15)
+  //     // alienArray = alienArray.map(alien => alien - 1)
+  //
+  //     //else if aliens hit left o
+  //
+  //   }, 500)
+  // }
+
+  // function moveAliensLeft() {
+  //   setInterval(() => {
+  //     // Remove the class of activeAlien from that square
+  //     alienArray.forEach(alien => {
+  //       squares[alien].classList.remove('activeAlien')
+  //     })
+  //     // create if statement to determine whether alien array should move down, left or right
+  //     // alienArray = alienArray.map(alien => alien - 1)
+  //
+  //     //  overwrite the alien array by adding 1 to each square (move to right)
+  //
+  //     alienArray = alienArray.map(alien => alien - 1)
+  //
+  //     // add the class of activealien to each square
+  //     alienArray.forEach(alien => {
+  //       squares[alien].classList.add('activeAlien')
+  //     })
+  //
+  //     // if aliens hit right of grid, move down and left
+  //     // alienArray = alienArray.map(alien => alien + 15)
+  //     // alienArray = alienArray.map(alien => alien - 1)
+  //
+  //     //else if aliens hit left o
+  //
+  //   }, 500)
+  // }
+
+  // function moveAliens() {
+  //   moveAliensRight()
+  //   if (alienArray === width-1) {
+  //   moveAliensDown()
+  // } else if (alienArray % width > 0) {
+  //   moveAliensLeft()
+  // }
+  //
+  // moveAliens()
 
   // Loop over array of aliens to add active class (when moving)
   // alienArray.forEach(element, index, array) => {
