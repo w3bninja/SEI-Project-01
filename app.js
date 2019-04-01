@@ -2,10 +2,10 @@ console.log('JS loaded')
 
 document.addEventListener('DOMContentLoaded', () => {
   const grid = document.querySelector('.grid')
-  let alienArray = [0,1,2,3,4,5,6,7,8,9,15,16,17,18,19,20,21,22,23,24,30,31,32,33,34,35,36,37,38,39]
-  // const movement = [1,1,1,1,1,width,-1,-1,-1,-1,-1,width]
-  // let currentMove = 0
   const width = 15
+  let alienArray = [0,1,2,3,4,5,6,7,8,9,15,16,17,18,19,20,21,22,23,24,30,31,32,33,34,35,36,37,38,39]
+  const movement = [1,1,1,1,1,width,-1,-1,-1,-1,-1,width]
+  let currentMove = 0
   const squares = []
   let spaceshipIndex = [217]
 
@@ -79,30 +79,23 @@ document.addEventListener('DOMContentLoaded', () => {
   // Create function to move aliens -------------------------------------------
   function moveAliens() {
     setInterval(() => {
-      // Remove the class of activeAlien from that square
       // Loop through aliens
       alienArray.forEach(alien => {
+        //remove all aliens
         squares[alien].classList.remove('activeAlien')
       })
-      // add movement[currentMove]
-      // increment currentMove
-      // when currentMove === width currentMove = 0
-
-      alienArray = alienArray.map(alien => alien + 1) //  overwrite the alien array by adding 1 to each square (move to right)
-
-      // alienArray = alienArray[currentMove]
-      // currentMove++
-
+      //find new alien positions
+      alienArray = alienArray.map(alien => alien + movement[currentMove])
+      //add class of alien to all aliens
       alienArray.forEach(alien => {
-        squares[alien].classList.add('activeAlien') // add the class of active alien to each square
+        squares[alien].classList.add('activeAlien')
       })
-
-      // if aliens hit right of grid, move down and left
-      // alienArray = alienArray.map(alien => alien + 15)
-      // alienArray = alienArray.map(alien => alien - 1)
-
-      //else if aliens hit left o
-
+      // increment currentMove
+      currentMove++
+      // when currentMove === width currentMove = 0
+      if (currentMove === movement.length) {
+        currentMove = 0
+      }
     }, 500)
   }
 
@@ -112,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Loop through alien array (forEach) and at random (see whack a mole homework (but use 30 --> amount of aliens) make aliens drop bombs at set interval --> similar to spaceship missile but on set interval, not event listener)
 
   // Set bomb to drop every 3 seconds (by calling alien bomb function)
-  const alienBombId = setInterval(alienBomb, 3000)
+  const alienBombId = setInterval(alienBomb, 2500)
 
   function alienBomb() {
     // setInterval(() => {
