@@ -2,8 +2,10 @@ console.log('JS loaded')
 
 document.addEventListener('DOMContentLoaded', () => {
   const grid = document.querySelector('.grid')
-  const score = document.querySelector('.score')
+  const score = document.getElementById('score')
+  const lives = document.getElementById('lives')
   let scoreTally = 0
+  let livesLeft = 3
   const width = 15
   let alienArray = [0,1,2,3,4,5,6,7,8,9,15,16,17,18,19,20,21,22,23,24,30,31,32,33,34,35,36,37,38,39]
   const alienMovement = [1,1,1,1,1,width,-1,-1,-1,-1,-1,width]
@@ -77,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
           alienArray.splice(alienIndex,1)
           scoreTally++
           score.innerText = scoreTally
+
           // use splice to get rid of that one alien you hit with bullet
           // first argument is the index, second is how many aliens you want to remove (1)
         }
@@ -119,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   }, 700)
   //}
-  
+
   // moveAliens()
 
   // ALIEN DROP BOMB Function -------------------------------------------------
@@ -141,9 +144,16 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         squares[bombIndex].classList.remove('bomb') // Causes error message when player dies
       }
-      if (squares[bombIndex].classList.contains('spaceship')) {
-        squares[bombIndex].classList.remove('bomb')
+      if (squares[bombIndex].classList.contains('spaceship')) { // this if causing a bug -> spaceship sometimes disappears when it isn't killed
         squares[bombIndex].classList.remove('spaceship')
+        squares[bombIndex].classList.remove('bomb')
+        clearInterval(alienBombId)
+        clearInterval(moveAliensTimerId)
+        livesLeft--
+        lives.innerText = livesLeft
+        // alienArray.forEach(alien => {
+        //   squares[alien].classList.remove('activeAlien')
+        // })
       }
 
     }, 500)
