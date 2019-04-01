@@ -77,29 +77,34 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log(alienArray)
 
   // Create function to move aliens -------------------------------------------
-  function moveAliens() {
-    setInterval(() => {
-      // Loop through aliens
-      alienArray.forEach(alien => {
-        //remove all aliens
-        squares[alien].classList.remove('activeAlien')
-      })
-      //find new alien positions
-      alienArray = alienArray.map(alien => alien + movement[currentMove])
-      //add class of alien to all aliens
-      alienArray.forEach(alien => {
-        squares[alien].classList.add('activeAlien')
-      })
-      // increment currentMove
-      currentMove++
-      // when currentMove === width currentMove = 0
-      if (currentMove === movement.length) {
-        currentMove = 0
-      }
-    }, 500)
-  }
+  // function moveAliens() {
+  const moveAliensTimerId = setInterval(() => {
+    // Loop through aliens
+    alienArray.forEach(alien => {
+      //remove all aliens
+      squares[alien].classList.remove('activeAlien')
+    })
+    //find new alien positions
+    alienArray = alienArray.map(alien => alien + movement[currentMove])
 
-  moveAliens()
+    //add class of alien to all aliens
+
+    alienArray.forEach(alien => {
+      squares[alien].classList.add('activeAlien')
+    })
+
+    // increment currentMove
+    currentMove++
+    // when currentMove === width currentMove = 0
+    if (currentMove === movement.length) currentMove = 0
+    if (alienArray.some(alien => alien >= 210)) clearInterval(moveAliensTimerId)
+
+  }, 30)
+  //}
+
+
+
+  // moveAliens()
 
   // ALIEN DROP BOMB Function -------------------------------------------------
   // Loop through alien array (forEach) and at random (see whack a mole homework (but use 30 --> amount of aliens) make aliens drop bombs at set interval --> similar to spaceship missile but on set interval, not event listener)
