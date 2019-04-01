@@ -2,14 +2,16 @@ console.log('JS loaded')
 
 document.addEventListener('DOMContentLoaded', () => {
   const grid = document.querySelector('.grid')
-  const scoreTally = document.querySelector('.score')
+  const score = document.querySelector('.score')
+  let scoreTally = 0
   const width = 15
   let alienArray = [0,1,2,3,4,5,6,7,8,9,15,16,17,18,19,20,21,22,23,24,30,31,32,33,34,35,36,37,38,39]
   const alienMovement = [1,1,1,1,1,width,-1,-1,-1,-1,-1,width]
   let currentAlienMove = 0
   const squares = []
   let spaceshipIndex = [217]
-  // let bulletIndex = []
+  let bombIndex
+  let bulletIndex = []
 
   // Create grid ------------------------------------- -------------------------
   for(let i = 0; i < width * width; i++) {
@@ -58,13 +60,19 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', (e) => {
     let bulletIndex = spaceshipIndex
     if(e.keyCode === 32) {
-      setInterval(() => {
+      //store bullet interval in variable so it can be stopped when it hits the alien
+      const bulletIntervalId = setInterval(() => {
         if(bulletIndex - width >= 0) {
           squares[bulletIndex].classList.remove('bullet')
           bulletIndex -= width
           squares[bulletIndex].classList.add('bullet')
         } else {
           squares[bulletIndex].classList.remove('bullet')
+        }
+        if (squares[bulletIndex].classList.contains('activeAlien')) {
+          clearInterval(bulletIntervalId)
+          squares[bulletIndex].classList.remove('bullet')
+          squares[bulletIndex].classList.remove('activeAlien')
         }
       }, 500)
     }
@@ -129,6 +137,11 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         squares[bombIndex].classList.remove('bomb')
       }
+      if (squares[bombIndex].classList.contains('spaceship')) {
+        squares[bombIndex].classList.remove('bomb')
+        squares[bombIndex].classList.remove('spaceship')
+      }
+
     }, 500)
     // }, 2000)
   }
@@ -142,24 +155,22 @@ document.addEventListener('DOMContentLoaded', () => {
   // if alien bomb equals spaceshipIndex - remove class of alien activeAlien
   // else do nothing..
 
-  function alienBombKillsUser(bombIndex) {
-    if (bombIndex === squares[spaceshipIndex]) {
-      squares[spaceshipIndex].classList.remove('spaceship')
-    // } else {
-    //   squares[spaceshipIndex].classList.add('spaceship')
-    //
-    // }
-    }
-  }
-  alienBombKillsUser()
-
+  // function alienBombKillsUser() {
+  //   if (bombIndex === spaceshipIndex) {
+  //     spaceshipIndex.classList.remove('spaceship')
+  //     bulletIndex.classList.remove('bullet')
+  //   }
+  // }
+  // alienBombKillsUser()
+  //
   // function spaceshipKillsAlien() {
   //   // if position of user bullet equals position of alien
   //   // remove class of alien
   //   if (squares[bulletIndex] === alienArray) {
   //     alienArray.classList.remove('activeAlien')
   //   }
-  //
+  //    console.log(indexOf)
+  //   splice(position in array (indexof),1)
   // }
   //
   // spaceshipKillsAlien()
@@ -171,11 +182,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // use .push() and .pop() to add and remove active Alien class
   //
   //  })
-
-
-  // Function - combine the above in a function moveAliens
-  // Use modulus ----> if alienArray modulus x === 0, then move down
-
 
   // KEEP BRACKETS BELOW
 
