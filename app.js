@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentAlienMove = 0
   const squares = []
   let spaceshipIndex = [217]
-  let bombIndex
-  let bulletIndex = []
+  // let bombIndex
+  // let bulletIndex = []
 
   // Create grid ------------------------------------- -------------------------
   for(let i = 0; i < width * width; i++) {
@@ -73,6 +73,12 @@ document.addEventListener('DOMContentLoaded', () => {
           clearInterval(bulletIntervalId)
           squares[bulletIndex].classList.remove('bullet')
           squares[bulletIndex].classList.remove('activeAlien')
+          const alienIndex = alienArray.indexOf(bulletIndex)
+          alienArray.splice(alienIndex,1)
+          scoreTally++
+          score.innerText = scoreTally
+          // use splice to get rid of that one alien you hit with bullet
+          // first argument is the index, second is how many aliens you want to remove (1)
         }
       }, 500)
     }
@@ -113,9 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   }, 700)
   //}
-
-
-
+  
   // moveAliens()
 
   // ALIEN DROP BOMB Function -------------------------------------------------
@@ -135,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
         bombIndex += width
         squares[bombIndex].classList.add('bomb')
       } else {
-        squares[bombIndex].classList.remove('bomb')
+        squares[bombIndex].classList.remove('bomb') // Causes error message when player dies
       }
       if (squares[bombIndex].classList.contains('spaceship')) {
         squares[bombIndex].classList.remove('bomb')
@@ -147,41 +151,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   alienBomb()
-
-
-  //COLLISION! ================================================================
-  //
-  // alien bomb kills user spaceship
-  // if alien bomb equals spaceshipIndex - remove class of alien activeAlien
-  // else do nothing..
-
-  // function alienBombKillsUser() {
-  //   if (bombIndex === spaceshipIndex) {
-  //     spaceshipIndex.classList.remove('spaceship')
-  //     bulletIndex.classList.remove('bullet')
-  //   }
-  // }
-  // alienBombKillsUser()
-  //
-  // function spaceshipKillsAlien() {
-  //   // if position of user bullet equals position of alien
-  //   // remove class of alien
-  //   if (squares[bulletIndex] === alienArray) {
-  //     alienArray.classList.remove('activeAlien')
-  //   }
-  //    console.log(indexOf)
-  //   splice(position in array (indexof),1)
-  // }
-  //
-  // spaceshipKillsAlien()
-
-
-  // Loop over array of aliens to add active class (when moving)
-  // alienArray.forEach(element, index, array) => {
-  // alienArray.classList.add('activeAlien')
-  // use .push() and .pop() to add and remove active Alien class
-  //
-  //  })
 
   // KEEP BRACKETS BELOW
 
