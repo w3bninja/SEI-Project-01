@@ -115,7 +115,6 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(alienBombMovementId)
         if (livesLeft === 0) {
           return gameOver()
-          gameInPlay = false
         }
       }
     }, 500)
@@ -134,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
     endMessage.innerText = 'Game Over'
     grid.style.display = 'none'
     reset.innerText = 'Play again'
-    lives.innerText = 0 // cheating here --> this sometimes updates to -1 after game over page is shown
+    livesLeft = 0
   }
 
   //Reset =======================================================================
