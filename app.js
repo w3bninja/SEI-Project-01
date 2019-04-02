@@ -110,18 +110,26 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if (squares[bombIndex].classList.contains('spaceship')) {
         squares[bombIndex].classList.remove('bomb')
-        livesLeft--
-        lives.innerText = livesLeft
         clearInterval(alienBombMovementId)
-        if (livesLeft === 0) {
-          return gameOver()
-        }
+        loseLife()
       }
     }, 500)
     // }, 2000)
   }
 
   alienBomb()
+
+
+  // lose life function ========================================================
+  function loseLife() {
+    livesLeft--
+    if (livesLeft !== 0) {
+      lives.innerText = livesLeft
+    } else {
+      lives.innerText = livesLeft
+      return gameOver()
+    }
+  }
 
   function gameOver() {
     gameInPlay = false
