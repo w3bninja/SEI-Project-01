@@ -35,15 +35,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // }
 
   // Create grid --------------------------------------------------------------
-  // function createGrid() {
   for(let i = 0; i < width * width; i++) {
     const square = document.createElement('div')
     squares.push(square)
     grid.appendChild(square)
   }
-  // }
-
-  // createGrid()
 
   // USER SPACESHIP ===========================================================
   // Create user spaceship
@@ -97,15 +93,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // moveAliens()
 
   // ALIEN DROP BOMB Function -------------------------------------------------
-  // Loop through alien array (forEach) and at random (see whack a mole homework (but use 30 --> amount of aliens) make aliens drop bombs at set interval --> similar to spaceship missile but on set interval, not event listener)
-
   // Set bomb to drop every 2.5 seconds (by calling alien bomb function)
-
   const alienBombId = setInterval(alienBomb, 2000)
 
   function alienBomb() {
     // const alienBombId = setInterval(() => {
-    // let randomIndex = Math.floor(Math.random() * 29) // need timeout create random number to drop bombs from just bottom array of aliens
     let bombIndex = alienArray[Math.floor(Math.random() * alienArray.length)]
 
     const alienBombMovementId = setInterval(() => {
@@ -116,9 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         squares[bombIndex].classList.remove('bomb')
       }
-      //create while loop? while lives > 0
       if (squares[bombIndex].classList.contains('spaceship')) {
-        // squares[bombIndex].classList.remove('spaceship')
         squares[bombIndex].classList.remove('bomb')
         livesLeft--
         lives.innerText = livesLeft
@@ -127,7 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
           return gameOver()
         }
       }
-
     }, 500)
     // }, 2000)
   }
@@ -159,6 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
     grid.style.display = 'flex'
     alienArray = alienStart
     createAlien()
+    reset.innerText = ''
 
     // }
   }
@@ -209,9 +199,6 @@ document.addEventListener('DOMContentLoaded', () => {
           alienArray.splice(alienIndex,1)
           scoreTally++
           score.innerText = scoreTally
-
-          // use splice to get rid of that one alien you hit with bullet
-          // first argument is the index, second is how many aliens you want to remove (1)
         }
       }, 500)
     }
