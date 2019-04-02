@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const score = document.getElementById('score')
   const lives = document.getElementById('lives')
   const endMessage = document.querySelector('.endMessage')
+  const reset = document.querySelector('.reset')
+  const heading = document.getElementById('heading')
   let scoreTally = 0
   let livesLeft = 3
   const width = 15
@@ -13,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentAlienMove = 0
   const squares = []
   let spaceshipIndex = [217]
-  // let gameInPlay = true
+  let gameInPlay = true
   // let bombIndex
   // let bulletIndex = []
 
@@ -26,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // USER SPACESHIP ===========================================================
   // Create user spaceship
-
   squares[spaceshipIndex].classList.add('spaceship')
 
   // Create function to move user spaceship ----------------------------------
@@ -57,21 +58,16 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     //find new alien positions
     alienArray = alienArray.map(alien => alien + alienMovement[currentAlienMove])
-
     //add class of alien to all aliens
     alienArray.forEach(alien => {
       squares[alien].classList.add('activeAlien')
     })
-
     // increment currentMove
     currentAlienMove++
-
     // when currentMove === width currentMove = 0
     if (currentAlienMove === alienMovement.length) currentAlienMove = 0
     if (alienArray.some(alien => alien >= 210)) clearInterval(moveAliensTimerId)
-
     // let bottomAliens = alienArray.slice(20)
-
   }, 700)
   //}
 
@@ -113,6 +109,9 @@ document.addEventListener('DOMContentLoaded', () => {
           })
           endMessage.innerText = 'Game Over'
           grid.remove('div')
+          reset.innerText = 'Play again'
+          gameInPlay = false
+
         }
       }
 
@@ -172,6 +171,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 
+  //Reset =======================================================================
+  function resetGame() {
+    if (!gameInPlay){
+      alienBomb()
+      moveSpaceship()
+      livesLeft = 3
+      scoreTally = 0
+      score.innerText = ''
+      endMessage.innerText = ''
+      alienArray.forEach(alien => {
+        squares[alien].classList.add('activeAlien')
+      })
+    }
+  }
+
+  reset.addEventListener('click', resetGame)
 
   // KEEP BRACKETS BELOW
 
