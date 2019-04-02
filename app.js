@@ -6,11 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const lives = document.getElementById('lives')
   const endMessage = document.querySelector('.endMessage')
   const reset = document.querySelector('.reset')
-  const heading = document.getElementById('heading')
+  // const start = document.querySelector('.start')
   let scoreTally = 0
   let livesLeft = 3
   const width = 15
-  let alienArray = [0,1,2,3,4,5,6,7,8,9,10,15,16,17,18,19,20,21,22,23,24,25,30,31,32,33,34,35,36,37,38,39,40]
+  const alienStart = [0,1,2,3,4,5,6,7,8,9,10,15,16,17,18,19,20,21,22,23,24,25,30,31,32,33,34,35,36,37,38,39,40]
+  let alienArray = alienStart
   const alienMovement = [1,1,1,1,width,-1,-1,-1,-1,width]
   let currentAlienMove = 0
   const squares = []
@@ -19,16 +20,30 @@ document.addEventListener('DOMContentLoaded', () => {
   // let bombIndex
   // let bulletIndex = []
 
-  // Create grid ------------------------------------- -------------------------
-  function createGrid() {
-    for(let i = 0; i < width * width; i++) {
-      const square = document.createElement('div')
-      squares.push(square)
-      grid.appendChild(square)
-    }
-  }
 
-  createGrid()
+
+  // Start game function ======================================================
+  // function init() {
+  //   start.innerText = 'Start'
+  //   alienBomb()
+  //   moveSpaceship()
+  //   createGrid()
+  //   createAlien()
+  //   alienArray.forEach(alien => {
+  //     squares[alien].classList.add('activeAlien')
+  //   })
+  // }
+
+  // Create grid --------------------------------------------------------------
+  // function createGrid() {
+  for(let i = 0; i < width * width; i++) {
+    const square = document.createElement('div')
+    squares.push(square)
+    grid.appendChild(square)
+  }
+  // }
+
+  // createGrid()
 
   // USER SPACESHIP ===========================================================
   // Create user spaceship
@@ -108,18 +123,8 @@ document.addEventListener('DOMContentLoaded', () => {
         livesLeft--
         lives.innerText = livesLeft
         clearInterval(alienBombMovementId)
-
         if (livesLeft === 0) {
-          clearInterval(alienBombId)
-          clearInterval(moveAliensTimerId)
-          alienArray.forEach(alien => {
-            squares[alien].classList.remove('activeAlien')
-          })
-          endMessage.innerText = 'Game Over'
-          grid.remove('div')
-          reset.innerText = 'Play again'
-          gameInPlay = false
-
+          return gameOver()
         }
       }
 
@@ -128,6 +133,35 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   alienBomb()
+
+  function gameOver() {
+    gameInPlay = false
+    clearInterval(alienBombId)
+    clearInterval(moveAliensTimerId)
+    alienArray.forEach(alien => {
+      squares[alien].classList.remove('activeAlien')
+    })
+    endMessage.innerText = 'Game Over'
+    grid.style.display = 'none'
+    reset.innerText = 'Play again'
+  }
+
+  //Reset =======================================================================
+  function resetGame() {
+    // clear intervals
+    // have most of the below in a start game function
+    // if (!gameInPlay){
+    livesLeft = 3
+    scoreTally = 0
+    score.innerText = 0
+    lives.innerText = 3
+    endMessage.innerText = ''
+    grid.style.display = 'flex'
+    alienArray = alienStart
+    createAlien()
+
+    // }
+  }
 
   // Add event listener to move user moveSpaceship ---------------------------
   document.addEventListener('keydown', (e) => {
@@ -168,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
           squares[bulletIndex].classList.remove('bullet')
           squares[bulletIndex].classList.remove('activeAlien')
           squares[bulletIndex].classList.add('explosion')
-          const explosionId = setInterval(() => {
+          setTimeout(() => {
             squares[bulletIndex].classList.remove('explosion')
           }, 300)
           const alienIndex = alienArray.indexOf(bulletIndex)
@@ -183,23 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 
-  //Reset =======================================================================
-  function resetGame() {
-    if (!gameInPlay){
-      alienBomb()
-      moveSpaceship()
-      createGrid()
-      createAlien()
-      livesLeft = 3
-      scoreTally = 0
-      score.innerText = 0
-      lives.innerText = 3
-      endMessage.innerText = ''
-      alienArray.forEach(alien => {
-        squares[alien].classList.add('activeAlien')
-      })
-    }
-  }
+  // start.addEventListener('click', init)
 
   reset.addEventListener('click', resetGame)
 
