@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentAlienMove = 0
   const squares = []
   let spaceshipIndex = [217]
+  let gameInPlay = true
   // let bombIndex
   // let bulletIndex = []
 
@@ -129,15 +130,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // Loop through alien array (forEach) and at random (see whack a mole homework (but use 30 --> amount of aliens) make aliens drop bombs at set interval --> similar to spaceship missile but on set interval, not event listener)
 
   // Set bomb to drop every 2.5 seconds (by calling alien bomb function)
+
   const alienBombId = setInterval(alienBomb, 2500)
 
   function alienBomb() {
-    // setInterval(() => {
+    // const alienBombId = setInterval(() => {
     let randomIndex = Math.floor(Math.random() * 29) // need timeout create random number to drop bombs from just bottom array of aliens
     let bombIndex = alienArray[randomIndex]
 
     setInterval(() => {
-      if (bombIndex + width <= 224) {
+      if (bombIndex + width <= 500) {
         squares[bombIndex].classList.remove('bomb')
         bombIndex += width
         squares[bombIndex].classList.add('bomb')
@@ -145,15 +147,16 @@ document.addEventListener('DOMContentLoaded', () => {
         squares[bombIndex].classList.remove('bomb') // Causes error message when player dies
       }
       if (squares[bombIndex].classList.contains('spaceship')) { // this if causing a bug -> spaceship sometimes disappears when it isn't killed
-        squares[bombIndex].classList.remove('spaceship')
+      squares[bombIndex].classList.remove('spaceship')
         squares[bombIndex].classList.remove('bomb')
-        clearInterval(alienBombId)
-        clearInterval(moveAliensTimerId)
-        livesLeft--
-        lives.innerText = livesLeft
+        // clearInterval(alienBombId)
+        // clearInterval(moveAliensTimerId)
+        // livesLeft--
+        // lives.innerText = livesLeft
         // alienArray.forEach(alien => {
         //   squares[alien].classList.remove('activeAlien')
         // })
+
       }
 
     }, 500)
