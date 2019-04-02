@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const grid = document.querySelector('.grid')
   const score = document.getElementById('score')
   const lives = document.getElementById('lives')
+  const endMessage = document.querySelector('.endMessage')
   let scoreTally = 0
   let livesLeft = 3
   const width = 15
@@ -12,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentAlienMove = 0
   const squares = []
   let spaceshipIndex = [217]
-  let gameInPlay = true
+  // let gameInPlay = true
   // let bombIndex
   // let bulletIndex = []
 
@@ -37,6 +38,85 @@ document.addEventListener('DOMContentLoaded', () => {
     // add the class of player to square the player should move to
     squares[spaceshipIndex].classList.add('spaceship')
   }
+
+  // ALIENS ===================================================================
+  // Create alien array
+  alienArray.forEach(alien => {
+    // console.log('alien array foreach', squares[alien])
+    squares[alien].classList.add('activeAlien')
+  })
+  console.log(alienArray)
+
+  // Create function to move aliens -------------------------------------------
+  // function moveAliens() {
+  const moveAliensTimerId = setInterval(() => {
+    // Loop through aliens
+    alienArray.forEach(alien => {
+      //remove all aliens
+      squares[alien].classList.remove('activeAlien')
+    })
+    //find new alien positions
+    alienArray = alienArray.map(alien => alien + alienMovement[currentAlienMove])
+
+    //add class of alien to all aliens
+    alienArray.forEach(alien => {
+      squares[alien].classList.add('activeAlien')
+    })
+
+    // increment currentMove
+    currentAlienMove++
+
+    // when currentMove === width currentMove = 0
+    if (currentAlienMove === alienMovement.length) currentAlienMove = 0
+    if (alienArray.some(alien => alien >= 210)) clearInterval(moveAliensTimerId)
+
+    // let bottomAliens = alienArray.slice(20)
+
+  }, 700)
+  //}
+
+  // moveAliens()
+
+  // ALIEN DROP BOMB Function -------------------------------------------------
+  // Loop through alien array (forEach) and at random (see whack a mole homework (but use 30 --> amount of aliens) make aliens drop bombs at set interval --> similar to spaceship missile but on set interval, not event listener)
+
+  // Set bomb to drop every 2.5 seconds (by calling alien bomb function)
+
+  const alienBombId = setInterval(alienBomb, 2500)
+
+  function alienBomb() {
+    // const alienBombId = setInterval(() => {
+    // let randomIndex = Math.floor(Math.random() * 29) // need timeout create random number to drop bombs from just bottom array of aliens
+    let bombIndex = alienArray[Math.floor(Math.random() * alienArray.length)]
+
+    setInterval(() => {
+      if (bombIndex + width <= 300) { //Changed to <= 500 as when it was
+        squares[bombIndex].classList.remove('bomb')
+        bombIndex += width
+        squares[bombIndex].classList.add('bomb')
+      } else {
+        squares[bombIndex].classList.remove('bomb')
+      }
+      if (squares[bombIndex].classList.contains('spaceship')) {
+        squares[bombIndex].classList.remove('spaceship')
+        squares[bombIndex].classList.remove('bomb')
+        clearInterval(alienBombId)
+        clearInterval(moveAliensTimerId)
+        livesLeft--
+        lives.innerText = livesLeft
+        alienArray.forEach(alien => {
+          squares[alien].classList.remove('activeAlien')
+        })
+        endMessage.innerText = 'Game Over'
+        grid.remove('div')
+
+      }
+
+    }, 500)
+    // }, 2000)
+  }
+
+  alienBomb()
 
   // Add event listener to move user moveSpaceship ---------------------------
   document.addEventListener('keydown', (e) => {
@@ -87,84 +167,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 500)
     }
   })
-
-  // ALIENS ===================================================================
-  // Create alien array
-  alienArray.forEach(alien => {
-    // console.log('alien array foreach', squares[alien])
-    squares[alien].classList.add('activeAlien')
-  })
-  console.log(alienArray)
-
-  // Create function to move aliens -------------------------------------------
-  // function moveAliens() {
-  const moveAliensTimerId = setInterval(() => {
-    // Loop through aliens
-    alienArray.forEach(alien => {
-      //remove all aliens
-      squares[alien].classList.remove('activeAlien')
-    })
-    //find new alien positions
-    alienArray = alienArray.map(alien => alien + alienMovement[currentAlienMove])
-
-    //add class of alien to all aliens
-    alienArray.forEach(alien => {
-      squares[alien].classList.add('activeAlien')
-    })
-
-    // increment currentMove
-    currentAlienMove++
-
-    // when currentMove === width currentMove = 0
-    if (currentAlienMove === alienMovement.length) currentAlienMove = 0
-    if (alienArray.some(alien => alien >= 210)) clearInterval(moveAliensTimerId)
-
-    // let bottomAliens = alienArray.slice(20)
-
-  }, 700)
-  //}
-
-  // moveAliens()
-
-  // ALIEN DROP BOMB Function -------------------------------------------------
-  // Loop through alien array (forEach) and at random (see whack a mole homework (but use 30 --> amount of aliens) make aliens drop bombs at set interval --> similar to spaceship missile but on set interval, not event listener)
-
-  // Set bomb to drop every 2.5 seconds (by calling alien bomb function)
-
-  const alienBombId = setInterval(alienBomb, 2500)
-
-  function alienBomb() {
-    // const alienBombId = setInterval(() => {
-    // let randomIndex = Math.floor(Math.random() * 29) // need timeout create random number to drop bombs from just bottom array of aliens
-
-    let bombIndex = alienArray[Math.floor(Math.random() * alienArray.length)]
-
-    setInterval(() => {
-      if (bombIndex + width <= 300) { //Changed to <= 500 as when it was
-        squares[bombIndex].classList.remove('bomb')
-        bombIndex += width
-        squares[bombIndex].classList.add('bomb')
-      } else {
-        squares[bombIndex].classList.remove('bomb')
-      }
-      if (squares[bombIndex].classList.contains('spaceship')) {
-        squares[bombIndex].classList.remove('spaceship')
-        squares[bombIndex].classList.remove('bomb')
-        clearInterval(alienBombId)
-        clearInterval(moveAliensTimerId)
-        livesLeft--
-        lives.innerText = livesLeft
-        alienArray.forEach(alien => {
-          squares[alien].classList.remove('activeAlien')
-        })
-
-      }
-
-    }, 500)
-    // }, 2000)
-  }
-
-  alienBomb()
 
   // KEEP BRACKETS BELOW
 

@@ -101,6 +101,11 @@ h1 {
   border-top: 2px solid red;
 }
 
+.endMessage {
+  color: white;
+  font-size: 30px;
+  text-align: center;
+}
 
 
 /* .score, .lives{
