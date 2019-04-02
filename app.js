@@ -135,27 +135,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function alienBomb() {
     // const alienBombId = setInterval(() => {
-    let randomIndex = Math.floor(Math.random() * 29) // need timeout create random number to drop bombs from just bottom array of aliens
-    let bombIndex = alienArray[randomIndex]
+    // let randomIndex = Math.floor(Math.random() * 29) // need timeout create random number to drop bombs from just bottom array of aliens
+
+    let bombIndex = alienArray[Math.floor(Math.random() * alienArray.length)]
 
     setInterval(() => {
-      if (bombIndex + width <= 500) {
+      if (bombIndex + width <= 300) { //Changed to <= 500 as when it was
         squares[bombIndex].classList.remove('bomb')
         bombIndex += width
         squares[bombIndex].classList.add('bomb')
       } else {
-        squares[bombIndex].classList.remove('bomb') // Causes error message when player dies
-      }
-      if (squares[bombIndex].classList.contains('spaceship')) { // this if causing a bug -> spaceship sometimes disappears when it isn't killed
-      squares[bombIndex].classList.remove('spaceship')
         squares[bombIndex].classList.remove('bomb')
-        // clearInterval(alienBombId)
-        // clearInterval(moveAliensTimerId)
-        // livesLeft--
-        // lives.innerText = livesLeft
-        // alienArray.forEach(alien => {
-        //   squares[alien].classList.remove('activeAlien')
-        // })
+      }
+      if (squares[bombIndex].classList.contains('spaceship')) {
+        squares[bombIndex].classList.remove('spaceship')
+        squares[bombIndex].classList.remove('bomb')
+        clearInterval(alienBombId)
+        clearInterval(moveAliensTimerId)
+        livesLeft--
+        lives.innerText = livesLeft
+        alienArray.forEach(alien => {
+          squares[alien].classList.remove('activeAlien')
+        })
 
       }
 
