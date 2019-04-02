@@ -20,19 +20,25 @@ document.addEventListener('DOMContentLoaded', () => {
   // let bombIndex
   // let bulletIndex = []
 
-
-
-  // Start game function ======================================================
-  // function init() {
-  //   start.innerText = 'Start'
-  //   alienBomb()
-  //   moveSpaceship()
-  //   createGrid()
+  // // Start game function
+  // function gameInit() {
+  //   // clear intervals
+  //   // have most of the below in a start game function
+  //   // if (!gameInPlay){
+  //   grid.style.display = 'flex'
+  //   alienArray = alienStart
   //   createAlien()
-  //   alienArray.forEach(alien => {
-  //     squares[alien].classList.add('activeAlien')
-  //   })
+  //   const moveAliensTimerId = setInterval(moveAliens, 700)
+  //   const alienBombId = setInterval(alienBomb, 2000)
+  //   livesLeft = 3
+  //   scoreTally = 0
+  //   score.innerText = 0
+  //   lives.innerText = 3
+  //   endMessage.innerText = ''
+  //   start.innerText = 'Start'
   // }
+  //
+  // gameInit()
 
   // Create grid --------------------------------------------------------------
   for(let i = 0; i < width * width; i++) {
@@ -68,8 +74,9 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log(alienArray)
 
   // Create function to move aliens -------------------------------------------
-  // function moveAliens() {
-  const moveAliensTimerId = setInterval(() => {
+  const moveAliensTimerId = setInterval(moveAliens, 700) // writing is this way because if I put the set interval within the function, the function doesn't listen to gameOver
+
+  function moveAliens() {
     // Loop through aliens
     alienArray.forEach(alien => {
       //remove all aliens
@@ -87,14 +94,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currentAlienMove === alienMovement.length) currentAlienMove = 0
     if (alienArray.some(alien => alien >= 210)) clearInterval(moveAliensTimerId)
     // let bottomAliens = alienArray.slice(20)
-  }, 700)
-  //}
+  }
 
   // moveAliens()
 
   // ALIEN DROP BOMB Function -------------------------------------------------
   // Set bomb to drop every 2.5 seconds (by calling alien bomb function)
-  const alienBombId = setInterval(alienBomb, 2000)
+  const alienBombId = setInterval(alienBomb, 1500)
 
   function alienBomb() {
     // const alienBombId = setInterval(() => {
@@ -117,8 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // }, 2000)
   }
 
-  alienBomb() // shouldn't need to invoke here as I've invoked above?
-
+  alienBomb() // shouldn't need to invoke here as I've invoked above? If i don't invoke here, bullets don't start falling for 4 seconds
 
   // lose life function ========================================================
   function loseLife() {
@@ -126,10 +131,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (livesLeft !== 0) {
       lives.innerText = livesLeft
     } else {
-      lives.innerText = livesLeft
+      !gameInPlay
+      lives.innerText = 0// cheat here and use 0? sometimes lives keeps going below 0
       return gameOver()
     }
   }
+
+  // function userWins(){
+  //   //if all aliens have been killed - alien array doesn't have class of activeAlien - use every?
+  //   if (alienArray.classList.contains('activeAlien') === false) {
+  //     return gameOver()
+  //   }
+  // }
+
+  // userWins()
 
   function gameOver() {
     gameInPlay = false
@@ -140,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     endMessage.innerText = 'Game Over'
     grid.style.display = 'none'
-    reset.innerText = 'Play again'
+    reset.innerText = 'Play game'
     livesLeft = 0
   }
 
@@ -149,18 +164,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // clear intervals
     // have most of the below in a start game function
     // if (!gameInPlay){
+    grid.style.display = 'flex'
+    alienArray = alienStart
+    createAlien()
+    const moveAliensTimerId = setInterval(moveAliens, 700)
+    const alienBombId = setInterval(alienBomb, 2000)
     livesLeft = 3
     scoreTally = 0
     score.innerText = 0
     lives.innerText = 3
     endMessage.innerText = ''
-    grid.style.display = 'flex'
-    alienArray = alienStart
-    createAlien()
-    const alienBombId = setInterval(alienBomb, 2000)
     reset.innerText = ''
-
-    // }
   }
 
   // Add event listener to move user moveSpaceship ---------------------------
@@ -214,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 
-  // start.addEventListener('click', init)
+  // start.addEventListener('click', gameIynit)
 
   reset.addEventListener('click', resetGame)
 
