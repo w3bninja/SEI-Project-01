@@ -20,11 +20,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // let bulletIndex = []
 
   // Create grid ------------------------------------- -------------------------
-  for(let i = 0; i < width * width; i++) {
-    const square = document.createElement('div')
-    squares.push(square)
-    grid.appendChild(square)
+  function createGrid() {
+    for(let i = 0; i < width * width; i++) {
+      const square = document.createElement('div')
+      squares.push(square)
+      grid.appendChild(square)
+    }
   }
+
+  createGrid()
 
   // USER SPACESHIP ===========================================================
   // Create user spaceship
@@ -42,10 +46,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ALIENS ===================================================================
   // Create alien array
-  alienArray.forEach(alien => {
-    // console.log('alien array foreach', squares[alien])
-    squares[alien].classList.add('activeAlien')
-  })
+  function createAlien() {
+    alienArray.forEach(alien => {
+      // console.log('alien array foreach', squares[alien])
+      squares[alien].classList.add('activeAlien')
+    })
+  }
+
+  createAlien()
   console.log(alienArray)
 
   // Create function to move aliens -------------------------------------------
@@ -78,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Set bomb to drop every 2.5 seconds (by calling alien bomb function)
 
-  const alienBombId = setInterval(alienBomb, 2500)
+  const alienBombId = setInterval(alienBomb, 2000)
 
   function alienBomb() {
     // const alienBombId = setInterval(() => {
@@ -159,6 +167,10 @@ document.addEventListener('DOMContentLoaded', () => {
           clearInterval(bulletIntervalId)
           squares[bulletIndex].classList.remove('bullet')
           squares[bulletIndex].classList.remove('activeAlien')
+          squares[bulletIndex].classList.add('explosion')
+          const explosionId = setInterval(() => {
+            squares[bulletIndex].classList.remove('explosion')
+          }, 300)
           const alienIndex = alienArray.indexOf(bulletIndex)
           alienArray.splice(alienIndex,1)
           scoreTally++
@@ -176,9 +188,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!gameInPlay){
       alienBomb()
       moveSpaceship()
+      createGrid()
+      createAlien()
       livesLeft = 3
       scoreTally = 0
-      score.innerText = ''
+      score.innerText = 0
+      lives.innerText = 3
       endMessage.innerText = ''
       alienArray.forEach(alien => {
         squares[alien].classList.add('activeAlien')
