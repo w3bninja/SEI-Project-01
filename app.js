@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let scoreTally = 0
   let livesLeft = 3
   const width = 15
-  let alienArray = [0,1,2,3,4,5,6,7,8,9,15,16,17,18,19,20,21,22,23,24,30,31,32,33,34,35,36,37,38,39]
-  const alienMovement = [1,1,1,1,1,width,-1,-1,-1,-1,-1,width]
+  let alienArray = [0,1,2,3,4,5,6,7,8,9,10,15,16,17,18,19,20,21,22,23,24,25,30,31,32,33,34,35,36,37,38,39,40]
+  const alienMovement = [1,1,1,1,width,-1,-1,-1,-1,width]
   let currentAlienMove = 0
   const squares = []
   let spaceshipIndex = [217]
@@ -89,27 +89,31 @@ document.addEventListener('DOMContentLoaded', () => {
     // let randomIndex = Math.floor(Math.random() * 29) // need timeout create random number to drop bombs from just bottom array of aliens
     let bombIndex = alienArray[Math.floor(Math.random() * alienArray.length)]
 
-    setInterval(() => {
-      if (bombIndex + width <= 300) { //Changed to <= 500 as when it was
+    const alienBombMovementId = setInterval(() => {
+      if (bombIndex + width <= 300) { //Changed to <= 500 as it was killing user too early when <= 210
         squares[bombIndex].classList.remove('bomb')
         bombIndex += width
         squares[bombIndex].classList.add('bomb')
       } else {
         squares[bombIndex].classList.remove('bomb')
       }
+      //create while loop? while lives > 0
       if (squares[bombIndex].classList.contains('spaceship')) {
-        squares[bombIndex].classList.remove('spaceship')
+        // squares[bombIndex].classList.remove('spaceship')
         squares[bombIndex].classList.remove('bomb')
-        clearInterval(alienBombId)
-        clearInterval(moveAliensTimerId)
         livesLeft--
         lives.innerText = livesLeft
-        alienArray.forEach(alien => {
-          squares[alien].classList.remove('activeAlien')
-        })
-        endMessage.innerText = 'Game Over'
-        grid.remove('div')
+        clearInterval(alienBombMovementId)
 
+        if (livesLeft === 0) {
+          clearInterval(alienBombId)
+          clearInterval(moveAliensTimerId)
+          alienArray.forEach(alien => {
+            squares[alien].classList.remove('activeAlien')
+          })
+          endMessage.innerText = 'Game Over'
+          grid.remove('div')
+        }
       }
 
     }, 500)
@@ -167,6 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 500)
     }
   })
+
 
   // KEEP BRACKETS BELOW
 
