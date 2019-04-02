@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // }, 2000)
   }
 
-  alienBomb()
+  alienBomb() // shouldn't need to invoke here as I've invoked above?
 
 
   // lose life function ========================================================
@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
     grid.style.display = 'flex'
     alienArray = alienStart
     createAlien()
-    alienBomb()
+    const alienBombId = setInterval(alienBomb, 2000)
     reset.innerText = ''
 
     // }
