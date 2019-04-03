@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let gameInPlay = true
   let moveAliensTimerId
   let alienBombId
-  let bulletIntervalIds = []
+  let bulletIntervalIds = [] // created array to store multiple ids
 
   start.innerText = 'Play game'
 
@@ -74,12 +74,9 @@ document.addEventListener('DOMContentLoaded', () => {
       squares[alien].classList.add('activeAlien')
     })
   }
-
-  // createAlien()
   // console.log(alienArray)
 
   // Create function to move aliens -------------------------------------------
-  // let moveAliensTimerId = setInterval(moveAliens, 700) // writing is this way because if I put the set interval within the function, the function doesn't listen to gameOver
 
   function moveAliens() {
     // Loop through aliens
@@ -104,8 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ALIEN DROP BOMB Function -------------------------------------------------
-  // Set bomb to drop every 2.5 seconds (by calling alien bomb function)
-  // let alienBombId = setInterval(alienBomb, 1500)
   function alienBomb() {
     // const alienBombId = setInterval(() => {
     let bombIndex = alienArray[Math.floor(Math.random() * alienArray.length)]

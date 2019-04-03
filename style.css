@@ -29,21 +29,6 @@ h1 {
   margin: 0;
 }
 
-/* #heading {
-  font-size: 50px;
-  justify-content: center;
-  align-content: center;
-  letter-spacing: 20px;
-  color: white;
-  height: 8%;
-  margin-bottom: 30px;
-  font-weight: bold;
-} */
-
-/* .main {
-  display: flex;
-} */
-
 .grid {
   height: 500px;
   width: 500px;
@@ -55,7 +40,6 @@ h1 {
   /* max-height: 500px;
   max-width: 500px; */
   border-bottom: 5px solid #ff7163;
-
 }
 
 .grid div {
@@ -147,7 +131,4 @@ h1 {
 
 .hidden {
   display: none!important;
-}
-
-/* .score, .lives{
 }
