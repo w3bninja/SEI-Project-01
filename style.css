@@ -97,7 +97,7 @@ h1 {
   border-top: 2px solid red;
 }
 
-.endMessage {
+.endMessage, .endMessageWin {
   color: #ff7163;
   font-size: 34px;
   text-align: center;

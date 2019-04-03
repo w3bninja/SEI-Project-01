@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const livesText = document.querySelector('.lives')
   const endMessage = document.querySelector('.endMessage')
   const start = document.querySelector('.start')
+  const endMessageWin = document.querySelector('.endMessageWin')
   let scoreTally = 0
   let livesLeft = 3
   const width = 15
@@ -45,6 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     scoreId.innerText = 0
     livesId.innerText = 3
     endMessage.classList.add('hidden')
+    endMessageWin.classList.add('hidden')
   }
 
   // Create grid --------------------------------------------------------------
@@ -147,7 +149,25 @@ document.addEventListener('DOMContentLoaded', () => {
     bulletIntervalIds = [] // store in array so we can loop through array to clear intervals
     endMessage.classList.remove('hidden')
     endMessage.innerText = 'Game Over'
-    console.log(endMessage)
+    grid.classList.add('hidden')
+    start.innerText = 'Play game'
+    start.classList.remove('hidden')
+    scoreId.classList.remove('hidden')
+    livesId.classList.remove('hidden')
+    livesLeft = 0
+    livesId.innerText = 0
+  }
+
+  function userWins() {
+    gameInPlay = false
+    clearInterval(alienBombId)
+    alienBombId = null
+    clearInterval(moveAliensTimerId)
+    moveAliensTimerId = null
+    bulletIntervalIds.forEach(bulletIntervalId => clearInterval(bulletIntervalId))
+    bulletIntervalIds = [] // store in array so we can loop through array to clear intervals
+    endMessageWin.classList.remove('hidden')
+    endMessageWin.innerText = 'Nice one, you win!'
     grid.classList.add('hidden')
     start.innerText = 'Play game'
     start.classList.remove('hidden')
@@ -203,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
           scoreId.innerText = scoreTally
         }
         if (alienArray.length === 0) {
-          gameOver()
+          userWins()
         }
       }, 500)
 
