@@ -1,5 +1,7 @@
 console.log('JS loaded')
 
+//need to ad alienBombIds array and do the same as i did for bullets to make bombs stop properly
+
 document.addEventListener('DOMContentLoaded', () => {
   const grid = document.querySelector('.grid')
   const scoreId = document.getElementById('scoreId')
@@ -37,8 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
     currentAlienMove = 0
     alienArray = alienStart.slice()
     createAlien()
-    moveAliensTimerId = setInterval(moveAliens, 800)
-    alienBombId = setInterval(alienBomb, 1500)
+    moveAliensTimerId = setInterval(moveAliens, 700)
+    alienBombId = setInterval(alienBomb, 800)
     spaceshipIndex = 217
     squares[spaceshipIndex].classList.add('spaceship')
     livesLeft = 3 // needs to be updated so this listens to livesleft at top of code
@@ -212,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (squares[bulletIndex].classList.contains('activeAlien')) {
           squares[bulletIndex].classList.remove('bullet')
           squares[bulletIndex].classList.remove('activeAlien')
-          squares[bulletIndex].classList.add('explosion')
+          squares[bulletIndex].classList.add('explosion') // turn this into explosion function?
           setTimeout(() => {
             squares[bulletIndex].classList.remove('explosion')
           }, 200)
