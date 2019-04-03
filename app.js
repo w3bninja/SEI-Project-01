@@ -2,43 +2,78 @@ console.log('JS loaded')
 
 document.addEventListener('DOMContentLoaded', () => {
   const grid = document.querySelector('.grid')
-  const score = document.getElementById('score')
-  const lives = document.getElementById('lives')
+  const scoreId = document.getElementById('scoreId')
+  const livesId = document.getElementById('livesId')
+  const scoreText = document.querySelector('.score')
+  const livesText = document.querySelector('.lives')
   const endMessage = document.querySelector('.endMessage')
-  const reset = document.querySelector('.reset')
-  // const start = document.querySelector('.start')
+  const start = document.querySelector('.start')
   let scoreTally = 0
   let livesLeft = 3
   const width = 15
   const alienStart = [0,1,2,3,4,5,6,7,8,9,10,15,16,17,18,19,20,21,22,23,24,25,30,31,32,33,34,35,36,37,38,39,40]
-  let alienArray = alienStart
+  let alienArray = alienStart.slice() // to create new array to use on reset - splice modifies existing array
   const alienMovement = [1,1,1,1,width,-1,-1,-1,-1,width]
   let currentAlienMove = 0
   const squares = []
-  let spaceshipIndex = [217]
+  let spaceshipIndex = 217
   let gameInPlay = true
-  // let bombIndex
-  // let bulletIndex = []
+  let moveAliensTimerId
+  let alienBombId
+  let bulletIntervalId
+  // let bulletIndex
 
-  // // Start game function
-  // function gameInit() {
-  //   // clear intervals
+  start.innerText = 'Play game'
+
+  // Start game function
+  function gameInit() {
+    gameInPlay = true
+    grid.classList.remove('hidden')
+    scoreText.classList.remove('hidden')
+    livesText.classList.remove('hidden')
+    start.classList.add('hidden')
+    createAlien()
+    currentAlienMove = 0
+    spaceshipIndex = 217
+    squares[spaceshipIndex].classList.add('spaceship')
+    alienArray = alienStart.slice()
+    moveAliensTimerId = setInterval(moveAliens, 700)
+    alienBombId = setInterval(alienBomb, 2000)
+    livesLeft = 3 // needs to be updated so this listens to livesleft at top of code
+    scoreTally = 0
+    scoreId.innerText = 0
+    livesId.innerText = 3
+    endMessage.classList.add('hidden')
+
+    // reset.innerText = ''
+  }
+
+  // function resetGame() {
   //   // have most of the below in a start game function
-  //   // if (!gameInPlay){
-  //   grid.style.display = 'flex'
-  //   alienArray = alienStart
-  //   createAlien()
-  //   const moveAliensTimerId = setInterval(moveAliens, 700)
-  //   const alienBombId = setInterval(alienBomb, 2000)
-  //   livesLeft = 3
-  //   scoreTally = 0
-  //   score.innerText = 0
-  //   lives.innerText = 3
-  //   endMessage.innerText = ''
-  //   start.innerText = 'Start'
-  // }
+  //   gameInPlay = true
+  //   currentAlienMove = 0
+  //   spaceshipIndex = 217
+  //   // Create user spaceship
+  //   squares[spaceshipIndex].classList.add('spaceship')
   //
-  // gameInit()
+  //   grid.classList.remove('hidden')
+  //   alienArray = alienStart.slice()
+  //   createAlien()
+  //   alienBomb()
+  //   moveAliens()
+  //   moveAliensTimerId = setInterval(moveAliens, 700)
+  //   alienBombId = setInterval(alienBomb, 2000)
+  //   livesLeft = 3 // needs to be updated so this listens to livesleft at top of code
+  //   scoreTally = 0
+  //   scoreId.innerText = 0
+  //   livesId.innerText = 3
+  //   endMessage.innerText = ''
+  //   reset.innerText = ''
+  //   reset.classList.remove('hidden')
+  //   scoreText.classList.remove('hidden')
+  //   livesText.classList.remove('hidden')
+  // }
+
 
   // Create grid --------------------------------------------------------------
   for(let i = 0; i < width * width; i++) {
@@ -48,8 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // USER SPACESHIP ===========================================================
-  // Create user spaceship
-  squares[spaceshipIndex].classList.add('spaceship')
 
   // Create function to move user spaceship ----------------------------------
   function moveSpaceship() {
@@ -70,11 +103,11 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   }
 
-  createAlien()
-  console.log(alienArray)
+  // createAlien()
+  // console.log(alienArray)
 
   // Create function to move aliens -------------------------------------------
-  let moveAliensTimerId = setInterval(moveAliens, 700) // writing is this way because if I put the set interval within the function, the function doesn't listen to gameOver
+  // let moveAliensTimerId = setInterval(moveAliens, 700) // writing is this way because if I put the set interval within the function, the function doesn't listen to gameOver
 
   function moveAliens() {
     // Loop through aliens
@@ -93,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // when currentMove === width currentMove = 0
     if (currentAlienMove === alienMovement.length) currentAlienMove = 0
     if (alienArray.some(alien => alien >= 210)) {
-      return gameOver()
+      gameOver() // this doesn't work now?
     }
     // let bottomAliens = alienArray.slice(20)
   }
@@ -102,17 +135,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ALIEN DROP BOMB Function -------------------------------------------------
   // Set bomb to drop every 2.5 seconds (by calling alien bomb function)
-  let alienBombId = setInterval(alienBomb, 1500)
-
+  // let alienBombId = setInterval(alienBomb, 1500)
   function alienBomb() {
     // const alienBombId = setInterval(() => {
     let bombIndex = alienArray[Math.floor(Math.random() * alienArray.length)]
 
     const alienBombMovementId = setInterval(() => {
+      if(!squares[bombIndex]) {
+        clearInterval(alienBombMovementId)
+        return false
+      }
       if (bombIndex + width <= 300) { //Changed to <= 500 as it was killing user too early when <= 210
         squares[bombIndex].classList.remove('bomb')
         bombIndex += width
-        squares[bombIndex].classList.add('bomb')
+        squares[bombIndex].classList.add('bomb') // causing error in console
       } else {
         squares[bombIndex].classList.remove('bomb')
       }
@@ -125,15 +161,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // }, 2000)
   }
 
-  alienBomb() // shouldn't need to invoke here as I've invoked above? If i don't invoke here, bullets don't start falling for 4 seconds
-
-  // lose life function ========================================================
+  // Lose life function ========================================================
   function loseLife() {
     if (gameInPlay) livesLeft--
     if (livesLeft !== 0) {
-      lives.innerText = livesLeft
+      livesId.innerText = livesLeft
     } else {
-      lives.innerText = 0// cheat here and use 0? sometimes lives keeps going below 0
+      livesId.innerText = 0// cheat here and use 0? sometimes lives keeps going below 0
       gameOver()
     }
   }
@@ -144,43 +178,54 @@ document.addEventListener('DOMContentLoaded', () => {
   //     return gameOver()
   //   }
   // }
-
   // userWins()
 
   function gameOver() {
+    console.log('game over???')
     gameInPlay = false
     clearInterval(alienBombId)
     alienBombId = null
     clearInterval(moveAliensTimerId)
     moveAliensTimerId = null
-    alienArray.forEach(alien => {
-      squares[alien].classList.remove('activeAlien')
-    })
+    clearInterval(bulletIntervalId)
+    // squares[bulletIndex].classList.remove('explosion')
+    squares.forEach(square => square.classList.remove('activeAlien', 'explosion', 'spaceship', 'bullet', 'bomb'))
     endMessage.innerText = 'Game Over'
-    grid.style.display = 'none'
-    reset.innerText = 'Play game'
+    grid.classList.add('hidden')
+    // grid.style.display = 'none' // remove hidden class
+    start.innerText = 'Play game'
+    start.classList.remove('hidden')
+    scoreId.classList.remove('hidden')
+    livesId.classList.remove('hidden')
     livesLeft = 0
   }
 
   //Reset =======================================================================
-  function resetGame() {
-    // clear intervals
-    // have most of the below in a start game function
-    // if (!gameInPlay){
-    gameInPlay = true
-    currentAlienMove = 0
-    grid.style.display = 'flex'
-    alienArray = alienStart
-    createAlien()
-    moveAliensTimerId = setInterval(moveAliens, 700)
-    alienBombId = setInterval(alienBomb, 2000)
-    livesLeft = 3 // needs to be updated so this listens to livesleft at top of code
-    scoreTally = 0
-    score.innerText = 0
-    lives.innerText = 3
-    endMessage.innerText = ''
-    reset.innerText = ''
-  }
+  // function resetGame() {
+  //   // have most of the below in a start game function
+  //   gameInPlay = true
+  //   currentAlienMove = 0
+  //   spaceshipIndex = 217
+  //   // Create user spaceship
+  //   squares[spaceshipIndex].classList.add('spaceship')
+  //
+  //   grid.classList.remove('hidden')
+  //   alienArray = alienStart.slice()
+  //   createAlien()
+  //   alienBomb()
+  //   moveAliens()
+  //   moveAliensTimerId = setInterval(moveAliens, 700)
+  //   alienBombId = setInterval(alienBomb, 2000)
+  //   livesLeft = 3 // needs to be updated so this listens to livesleft at top of code
+  //   scoreTally = 0
+  //   scoreId.innerText = 0
+  //   livesId.innerText = 3
+  //   endMessage.innerText = ''
+  //   reset.innerText = ''
+  //   reset.classList.remove('hidden')
+  //   scoreText.classList.remove('hidden')
+  //   livesText.classList.remove('hidden')
+  // }
 
   // Add event listener to move user moveSpaceship ---------------------------
   document.addEventListener('keydown', (e) => {
@@ -208,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let bulletIndex = spaceshipIndex
     if(e.keyCode === 32) {
       //store bullet interval in variable so it can be stopped when it hits the alien
-      const bulletIntervalId = setInterval(() => {
+      bulletIntervalId = setInterval(() => {
         if(bulletIndex - width >= 0) {
           squares[bulletIndex].classList.remove('bullet')
           bulletIndex -= width
@@ -217,7 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
           squares[bulletIndex].classList.remove('bullet')
         }
         if (squares[bulletIndex].classList.contains('activeAlien')) {
-          clearInterval(bulletIntervalId)
+          // clearInterval(bulletIntervalId)
           squares[bulletIndex].classList.remove('bullet')
           squares[bulletIndex].classList.remove('activeAlien')
           squares[bulletIndex].classList.add('explosion')
@@ -227,15 +272,15 @@ document.addEventListener('DOMContentLoaded', () => {
           const alienIndex = alienArray.indexOf(bulletIndex)
           alienArray.splice(alienIndex,1)
           scoreTally++
-          score.innerText = scoreTally
+          scoreId.innerText = scoreTally
         }
       }, 500)
     }
   })
 
-  // start.addEventListener('click', gameInit)
+  start.addEventListener('click', gameInit)
 
-  reset.addEventListener('click', resetGame)
+  // reset.addEventListener('click', resetGame)
 
   // KEEP BRACKETS BELOW
 

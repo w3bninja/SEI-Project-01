@@ -122,18 +122,19 @@ h1 {
   font-weight: bold;
 }
 
-.reset, .start {
+.start {
   color: white;
   font-size: 30px;
   text-align: center;
   margin-top: 20px;
-  letter-spacing: 5px;
+  letter-spacing: 10px;
+  font-weight: bold;
   /* border: 1px solid white; */
   /* width: 20px;
   height: 20px; */
 }
 
-.reset:hover {
+.reset:hover, .start:hover {
   cursor: pointer;
 }
 
@@ -142,6 +143,10 @@ h1 {
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.hidden {
+  display: none!important;
 }
 
 /* .score, .lives{
