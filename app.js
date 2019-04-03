@@ -151,7 +151,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // userWins()
 
   function gameOver() {
-    console.log('game over???')
     gameInPlay = false
     clearInterval(alienBombId)
     alienBombId = null
@@ -159,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
     moveAliensTimerId = null
 
     bulletIntervalIds.forEach(bulletIntervalId => clearInterval(bulletIntervalId))
-    bulletIntervalIds = []
+    bulletIntervalIds = [] // store in array so we can loop through array to clear intervals
     // squares[bulletIndex].classList.remove('explosion')
     endMessage.innerText = 'Game Over'
     grid.classList.add('hidden')
@@ -210,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
           setTimeout(() => {
             squares[bulletIndex].classList.remove('explosion')
           }, 200)
-          // clearInterval(bulletIntervalId)
+          clearInterval(bulletIntervalId)
           const alienIndex = alienArray.indexOf(bulletIndex)
           alienArray.splice(alienIndex,1)
           scoreTally++
