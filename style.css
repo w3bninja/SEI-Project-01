@@ -74,7 +74,7 @@ h1 {
 }
 
 .bomb {
-  background-image: url('images/bomb.png');
+  background-image: url('images/rocket.png');
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;

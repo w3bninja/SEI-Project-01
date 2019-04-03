@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let gameInPlay = true
   let moveAliensTimerId
   let alienBombId
-  let bulletIntervalIds = [] // created array to store multiple ids
+  let bulletIntervalIds = [] // created array to store multiple ids so they can all be cleared
 
   start.innerText = 'Play game'
 
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     alienArray = alienStart.slice()
     createAlien()
     moveAliensTimerId = setInterval(moveAliens, 200)
-    alienBombId = setInterval(alienBomb, 1000)
+    alienBombId = setInterval(alienBomb, 1500)
     spaceshipIndex = 217
     squares[spaceshipIndex].classList.add('spaceship')
     livesLeft = 3 // needs to be updated so this listens to livesleft at top of code
@@ -137,25 +137,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // function userWins(){
-  //   //if all aliens have been killed - alien array doesn't have class of activeAlien - use every?
-  //   if (alienArray.classList.contains('activeAlien') === false) {
-  //     return gameOver()
-  //   }
-  // }
-  // userWins()
-
   function gameOver() {
     gameInPlay = false
     clearInterval(alienBombId)
     alienBombId = null
     clearInterval(moveAliensTimerId)
     moveAliensTimerId = null
-
     bulletIntervalIds.forEach(bulletIntervalId => clearInterval(bulletIntervalId))
     bulletIntervalIds = [] // store in array so we can loop through array to clear intervals
-    // squares[bulletIndex].classList.remove('explosion')
+    endMessage.classList.remove('hidden')
     endMessage.innerText = 'Game Over'
+    console.log(endMessage)
     grid.classList.add('hidden')
     start.innerText = 'Play game'
     start.classList.remove('hidden')
@@ -163,6 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
     livesId.classList.remove('hidden')
     livesLeft = 0
     livesId.innerText = 0
+
   }
 
   // Add event listener to move user moveSpaceship ---------------------------
@@ -209,6 +202,9 @@ document.addEventListener('DOMContentLoaded', () => {
           alienArray.splice(alienIndex,1)
           scoreTally++
           scoreId.innerText = scoreTally
+        }
+        if (alienArray.length === 0) {
+          gameOver()
         }
       }, 500)
 
