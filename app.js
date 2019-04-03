@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     currentAlienMove = 0
     alienArray = alienStart.slice()
     createAlien()
-    moveAliensTimerId = setInterval(moveAliens, 200)
+    moveAliensTimerId = setInterval(moveAliens, 800)
     alienBombId = setInterval(alienBomb, 1500)
     spaceshipIndex = 217
     squares[spaceshipIndex].classList.add('spaceship')
@@ -155,7 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
     livesId.classList.remove('hidden')
     livesLeft = 0
     livesId.innerText = 0
-
   }
 
   // Add event listener to move user moveSpaceship ---------------------------
