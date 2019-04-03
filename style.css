@@ -101,9 +101,6 @@ h1 {
   text-align: right;
 }
 
-.redTop {
-  border-top: 2px solid red;
-}
 
 .endMessage, .endMessageWin {
   color: #FF6347;
@@ -118,7 +115,7 @@ h1 {
   color: white;
   font-size: 30px;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 30px;
   letter-spacing: 10px;
   font-weight: bold;
   /* border: 1px solid white; */
@@ -141,7 +138,6 @@ h1 {
   display: none!important;
 }
 
-/* Effect to move my player image*/
 @-webkit-keyframes spaceboots {
    0% { -webkit-transform: translate(2px, 1px) rotate(0deg); }
    10% { -webkit-transform: translate(-1px, -2px) rotate(-1deg); }

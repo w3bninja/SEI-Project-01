@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const endMessage = document.querySelector('.endMessage')
   const start = document.querySelector('.start')
   const endMessageWin = document.querySelector('.endMessageWin')
+  const audio = document.querySelector('audio')
   let scoreTally = 0
   let livesLeft = 3
   const width = 15
@@ -41,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     alienArray = alienStart.slice()
     createAlien()
     moveAliensTimerId = setInterval(moveAliens, 700)
-    alienBombId = setInterval(alienBomb, 550)
+    alienBombId = setInterval(alienBomb, 500)
     spaceshipIndex = 217
     squares[spaceshipIndex].classList.add('spaceship')
     livesLeft = 3 // needs to be updated so this listens to livesleft at top of code
@@ -50,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
     livesId.innerText = 3
     endMessage.classList.add('hidden')
     endMessageWin.classList.add('hidden')
+    // bulletAudio()
     // collisionTop()
 
   }
@@ -188,6 +190,10 @@ document.addEventListener('DOMContentLoaded', () => {
     livesId.innerText = livesLeft
   }
 
+  function bulletAudio() {
+    audio.src = 'sounds/bullet.m4a'
+    audio.play()
+  }
   // Add event listener to move user moveSpaceship ---------------------------
   document.addEventListener('keydown', (e) => {
     switch(e.keyCode) {
@@ -212,6 +218,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', (e) => {
     let bulletIndex = spaceshipIndex
     if(e.keyCode === 32) {
+      bulletAudio()
+
       const bulletIntervalId = setInterval(() => {
         if(bulletIndex - width >= 0) {
           squares[bulletIndex].classList.remove('bullet')
@@ -251,6 +259,10 @@ document.addEventListener('DOMContentLoaded', () => {
       bulletIntervalIds.push(bulletIntervalId)
     }
   })
+
+
+
+
 
   start.addEventListener('click', gameInit)
 
