@@ -92,7 +92,9 @@ document.addEventListener('DOMContentLoaded', () => {
     currentAlienMove++
     // when currentMove === width currentMove = 0
     if (currentAlienMove === alienMovement.length) currentAlienMove = 0
-    if (alienArray.some(alien => alien >= 210)) clearInterval(moveAliensTimerId)
+    if (alienArray.some(alien => alien >= 210)) {
+      return gameOver()
+    }
     // let bottomAliens = alienArray.slice(20)
   }
 
