@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let gameInPlay = true
   let moveAliensTimerId
   let alienBombId
+  let bulletIndex
   let bulletIntervalIds = [] // created array to store multiple ids so they can all be cleared
 
   start.innerText = 'Play game'
@@ -40,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     alienArray = alienStart.slice()
     createAlien()
     moveAliensTimerId = setInterval(moveAliens, 700)
-    alienBombId = setInterval(alienBomb, 800)
+    alienBombId = setInterval(alienBomb, 550)
     spaceshipIndex = 217
     squares[spaceshipIndex].classList.add('spaceship')
     livesLeft = 3 // needs to be updated so this listens to livesleft at top of code
@@ -49,6 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
     livesId.innerText = 3
     endMessage.classList.add('hidden')
     endMessageWin.classList.add('hidden')
+    // collisionTop()
+
   }
 
   // Create grid --------------------------------------------------------------
@@ -141,6 +144,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // function collisionTop() {
+  //   if (bulletIndex.some(bullet => bullet >= 14)) {
+  //     bulletIndex.classList.add('explosion')
+  //   }
+  // }
+
   function gameOver() {
     gameInPlay = false
     clearInterval(alienBombId)
@@ -156,8 +165,8 @@ document.addEventListener('DOMContentLoaded', () => {
     start.classList.remove('hidden')
     scoreId.classList.remove('hidden')
     livesId.classList.remove('hidden')
-    livesLeft = 0
-    livesId.innerText = 0
+    // livesLeft = 0
+    livesId.innerText = livesLeft
   }
 
   function userWins() {
@@ -175,8 +184,8 @@ document.addEventListener('DOMContentLoaded', () => {
     start.classList.remove('hidden')
     scoreId.classList.remove('hidden')
     livesId.classList.remove('hidden')
-    livesLeft = 0
-    livesId.innerText = 0
+    // livesLeft = 0
+    livesId.innerText = livesLeft
   }
 
   // Add event listener to move user moveSpaceship ---------------------------
@@ -226,6 +235,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (alienArray.length === 0) {
           userWins()
+        }
+        if (bulletIndex <= 14 && bulletIndex >= 0) {
+          squares[bulletIndex].classList.remove('bullet')
+          squares[bulletIndex].classList.add('explosion') // turn this into explosion function?
+          setTimeout(() => {
+            squares[bulletIndex].classList.remove('explosion')
+            console.log('hello')
+          }, 200)
+          clearInterval(bulletIntervalId)
+
         }
       }, 500)
 
