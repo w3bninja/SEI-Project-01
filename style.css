@@ -10,7 +10,7 @@ body {
   justify-content: center;
   margin: 0;
   background-image: url('https://media.giphy.com/media/aqkJ9q160Zmta/giphy.gif');
-  /* background-size: cover; */
+  background-size: cover;
   font-family: 'Exo 2', sans-serif;
 }
 
