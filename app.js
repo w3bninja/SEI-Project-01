@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // let alienBombMovementId
   let alienBombMovementIds = []
   let alienBombId
-  // let bulletIndex
   let bulletIntervalIds = [] // created array to store multiple ids so they can all be cleared
 
   start.innerText = 'Play game'
@@ -87,20 +86,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Create function to move aliens -------------------------------------------
   function moveAliens() {
-    // Loop through aliens
     alienArray.forEach(alien => {
-      //remove all aliens
-      squares[alien].classList.remove('activeAlien')
+      squares[alien].classList.remove('activeAlien') // loop through aliens & remove all aliens
     })
-    //find new alien positions
-    alienArray = alienArray.map(alien => alien + alienMovement[currentAlienMove])
-    //add class of alien to all aliens
+    alienArray = alienArray.map(alien => alien + alienMovement[currentAlienMove]) //find new alien positions
     alienArray.forEach(alien => {
-      squares[alien].classList.add('activeAlien')
+      squares[alien].classList.add('activeAlien') //add class of alien to all aliens
     })
-    // increment currentMove
-    currentAlienMove++
-    // when currentMove === width currentMove = 0
+    currentAlienMove++     // increment currentMove
     if (currentAlienMove === alienMovement.length) currentAlienMove = 0
     if (alienArray.some(alien => alien >= 210)) {
       gameOver()
@@ -112,6 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function alienBomb() {
     // const alienBombId = setInterval(() => {
     let bombIndex = alienArray[Math.floor(Math.random() * alienArray.length)]
+    alienBombAudio()
 
     const alienBombMovementId = setInterval(() => { // problem with stopping this interval
       if (bombIndex + width <= 300) { //Changed to <= 500 as it was killing user too early when <= 210
@@ -129,9 +123,10 @@ document.addEventListener('DOMContentLoaded', () => {
         squares[bombIndex].classList.remove('bomb')
         clearInterval(alienBombMovementId)
         loseLife()
+        // loseLifeAudio()
       }
       console.log('hello')
-    }, 500)
+    }, 450)
     alienBombMovementIds.push(alienBombMovementId)
 
     // }, 2000)
@@ -197,9 +192,19 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function bulletAudio() {
-    audio.src = 'sounds/bullet.m4a'
+    audio.src = 'sounds/004_13.wav'
     audio.play()
   }
+
+  function alienBombAudio() {
+    audio.src = 'sounds/017_9.wav'
+    audio.play()
+  }
+  // 
+  // function loseLifeAudio() {
+  //   audio.src = 'sounds/003_12.wav'
+  // }
+
   // Add event listener to move user moveSpaceship ---------------------------
   document.addEventListener('keydown', (e) => {
     switch(e.keyCode) {
@@ -265,10 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 
-
   start.addEventListener('click', gameInit)
-
-  // reset.addEventListener('click', resetGame)
 
   // KEEP BRACKETS BELOW
 
