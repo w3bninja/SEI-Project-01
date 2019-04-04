@@ -1,29 +1,28 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const grid = document.querySelector('.grid')
-  const scoreId = document.getElementById('scoreId')
-  const livesId = document.getElementById('livesId')
-  const scoreText = document.querySelector('.score')
-  const livesText = document.querySelector('.lives')
-  const endMessage = document.querySelector('.endMessage')
-  const start = document.querySelector('.start')
-  const endMessageWin = document.querySelector('.endMessageWin')
-  const audio = document.querySelector('audio')
-  let scoreTally = 0
-  let livesLeft = 3
-  const width = 15
-  const alienStart = [0,1,2,3,4,5,6,7,8,9,10,15,16,17,18,19,20,21,22,23,24,25,30,31,32,33,34,35,36,37,38,39,40]
-  let alienArray = alienStart.slice() // to create new array to use on reset - splice modifies existing array
-  const alienMovement = [1,1,1,1,width,-1,-1,-1,-1,width]
-  let currentAlienMove = 0
-  const squares = []
-  let spaceshipIndex = 217
-  let gameInPlay = true
-  let moveAliensTimerId
-  let alienBombMovementIds = []
-  let alienBombId
-  let bulletIndex
-  let bulletIntervalId
-  let bulletIntervalIds = [] // created array to store multiple ids so they can all be cleared
+  const grid = document.querySelector('.grid'),
+    scoreId = document.getElementById('scoreId'),
+    livesId = document.getElementById('livesId'),
+    scoreText = document.querySelector('.score'),
+    livesText = document.querySelector('.lives'),
+    endMessage = document.querySelector('.endMessage'),
+    start = document.querySelector('.start'),
+    endMessageWin = document.querySelector('.endMessageWin'),
+    audio = document.querySelector('audio'),
+    width = 15,
+    alienStart = [0,1,2,3,4,5,6,7,8,9,10,15,16,17,18,19,20,21,22,23,24,25,30,31,32,33,34,35,36,37,38,39,40],
+    alienMovement = [1,1,1,1,width,-1,-1,-1,-1,width],
+    squares = []
+  let scoreTally = 0,
+    livesLeft = 3,
+    alienArray = alienStart.slice(), // to create new array to use on reset - splice modifies existing array
+    currentAlienMove = 0,
+    spaceshipIndex = 217,
+    gameInPlay = true,
+    moveAliensTimerId,
+    alienBombMovementIds = [],
+    alienBombId
+  // let bulletIntervalId
+  // let bulletIntervalIds = [] // created array to store multiple ids so they can all be cleared
 
   start.innerText = 'Play game'
 
@@ -55,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Create grid --------------------------------------------------------------
   for(let i = 0; i < width * width; i++) {
     const square = document.createElement('div')
+    if (i < width) square.classList.add('ceiling')
     squares.push(square) //creates new array of divs
     grid.appendChild(square)
   }
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
     currentAlienMove++     // increment currentMove
     if (currentAlienMove === alienMovement.length) currentAlienMove = 0
     if (alienArray.some(alien => alien >= 210)) {
-      gameOver()
+      gameOver('Game Over <i class="far fa-thumbs-down"></i>')
     }
     // let bottomAliens = alienArray.slice(20)
   }
@@ -99,30 +99,12 @@ document.addEventListener('DOMContentLoaded', () => {
     alienBombAudio()
 
     const alienBombMovementId = setInterval(() => { // problem with stopping this interval
-      if (bombIndex + width <= 300) { //Changed to <= 500 as it was killing user too early when <= 210
-        squares[bombIndex].classList.remove('bomb')
-        bombIndex += width
-        if(!squares[bombIndex]) {
-          clearInterval(alienBombMovementId)
-          return false
-        }
-        squares[bombIndex].classList.add('bomb') // causing error in console because squares[bombIndex] doesn't exist
-      } else {
-        squares[bombIndex].classList.remove('bomb')
-      }
-      if (squares[bombIndex].classList.contains('spaceship')) {
-        squares[bombIndex].classList.remove('bomb')
-        clearInterval(alienBombMovementId)
+      bombIndex = drawBullet(bombIndex, width, 'bomb')
+      if (collision(bombIndex, 'spaceship', 'bomb', alienBombMovementId)) {
         loseLife()
-        squares[bulletIndex].classList.add('explosion') // turn this into explosion function?
-        setTimeout(() => {
-          squares[bulletIndex].classList.remove('explosion')
-        }, 200)
-        clearInterval(bulletIntervalId)
-        // loseLifeAudio()
       }
       console.log('hello')
-    }, 450)
+    }, 600)
     alienBombMovementIds.push(alienBombMovementId)
 
     // }, 2000)
@@ -135,19 +117,11 @@ document.addEventListener('DOMContentLoaded', () => {
       livesId.innerText = livesLeft
     } else {
       livesId.innerText = 0 // cheat here and use 0? sometimes lives keeps going below 0
-      gameOver()
+      gameOver('Game Over <i class="far fa-thumbs-down"></i>')
     }
   }
 
-  // function collision() {
-  //   squares[bulletIndex].classList.add('explosion') // turn this into explosion function?
-  //   setTimeout(() => {
-  //     squares[bulletIndex].classList.remove('explosion')
-  //   }, 200)
-  //   clearInterval(bulletIntervalId)
-  // }
-
-  function gameOver() {
+  function gameOver(message) {
     gameInPlay = false
     clearInterval(alienBombId)
     alienBombId = null
@@ -155,31 +129,10 @@ document.addEventListener('DOMContentLoaded', () => {
     moveAliensTimerId = null
     alienBombMovementIds.forEach(alienBombMovementId => clearInterval(alienBombMovementId))
     alienBombMovementIds = []
-    bulletIntervalIds.forEach(bulletIntervalId => clearInterval(bulletIntervalId))
-    bulletIntervalIds = [] // store in array so we can loop through array to clear intervals
+    // bulletIntervalIds.forEach(bulletIntervalId => clearInterval(bulletIntervalId))
+    // bulletIntervalIds = [] // store in array so we can loop through array to clear intervals
     endMessage.classList.remove('hidden')
-    endMessage.innerHTML = 'Game Over <i class="far fa-thumbs-down"></i>'
-    grid.classList.add('hidden')
-    start.innerText = 'Play game'
-    start.classList.remove('hidden')
-    scoreId.classList.remove('hidden')
-    livesId.classList.remove('hidden')
-    // livesLeft = 0
-    livesId.innerText = livesLeft
-  }
-
-  function userWins() {
-    gameInPlay = false
-    clearInterval(alienBombId)
-    alienBombId = null
-    clearInterval(moveAliensTimerId)
-    moveAliensTimerId = null
-    alienBombMovementIds.forEach(alienBombMovementId => clearInterval(alienBombMovementId))
-    alienBombMovementIds = []
-    bulletIntervalIds.forEach(bulletIntervalId => clearInterval(bulletIntervalId))
-    bulletIntervalIds = [] // store in array so we can loop through array to clear intervals
-    endMessageWin.classList.remove('hidden')
-    endMessageWin.innerHTML = '<i class="far fa-hand-spock"></i> You win! <i class="far fa-hand-spock"></i>'
+    endMessage.innerHTML = message
     grid.classList.add('hidden')
     start.innerText = 'Play game'
     start.classList.remove('hidden')
@@ -223,50 +176,62 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 
+  function drawBullet(index, next, shot){
+    if(squares[index + next]) {
+      squares[index].classList.remove(shot)
+      index += next
+      squares[index].classList.add(shot)
+    } else {
+      squares[index].classList.remove(shot)
+    }
+    return index
+  }
+
+  function collision(index, target, shot, interval){
+    if (squares[index].classList.contains(target)) {
+      squares[index].classList.remove(shot)
+      // collision()
+      squares[index].classList.add('explosion') // turn this into explosion function?
+      setTimeout(() => {
+        squares[index].classList.remove('explosion')
+      }, 200)
+      clearInterval(interval)
+      return true
+    } else return false
+  }
+
+  function alienDeath(index){
+    squares[index].classList.remove('activeAlien')
+    const alienIndex = alienArray.indexOf(index)
+    alienArray.splice(alienIndex,1)
+  }
+
+  function updateScore(){
+    scoreTally++
+    scoreId.innerText = scoreTally
+  }
+
+  function fire(){
+    let bulletIndex = spaceshipIndex
+    const bulletIntervalId = setInterval(() => {
+      bulletIndex = drawBullet(bulletIndex, -width, 'bullet')
+      if (collision(bulletIndex, 'activeAlien', 'bullet', bulletIntervalId)){
+        alienDeath(bulletIndex)
+        updateScore()
+        if (alienArray.length === 0) {
+          gameOver('<i class="far fa-hand-spock"></i> You win! <i class="far fa-hand-spock"></i>')
+        }
+      }
+      collision(bulletIndex, 'ceiling', 'bullet', bulletIntervalId)
+    }, 100)
+    // bulletIntervalIds.push(bulletIntervalId)
+  }
+
   // USER BULLET ==============================================================
   document.addEventListener('keydown', (e) => {
-    let bulletIndex = spaceshipIndex
     if(e.keyCode === 32) {
       bulletAudio()
-
-      const bulletIntervalId = setInterval(() => {
-        if(bulletIndex - width >= 0) {
-          squares[bulletIndex].classList.remove('bullet')
-          bulletIndex -= width
-          squares[bulletIndex].classList.add('bullet')
-        } else {
-          squares[bulletIndex].classList.remove('bullet')
-        }
-        if (squares[bulletIndex].classList.contains('activeAlien')) {
-          squares[bulletIndex].classList.remove('bullet')
-          squares[bulletIndex].classList.remove('activeAlien')
-          // collision()
-          squares[bulletIndex].classList.add('explosion') // turn this into explosion function?
-          setTimeout(() => {
-            squares[bulletIndex].classList.remove('explosion')
-          }, 200)
-          clearInterval(bulletIntervalId)
-          const alienIndex = alienArray.indexOf(bulletIndex)
-          alienArray.splice(alienIndex,1)
-          scoreTally++
-          scoreId.innerText = scoreTally
-        }
-        if (alienArray.length === 0) {
-          userWins()
-        }
-        if (bulletIndex <= 14 && bulletIndex >= 0) {
-          squares[bulletIndex].classList.remove('bullet')
-          // collision()
-          squares[bulletIndex].classList.add('explosion') // turn this into explosion function?
-          setTimeout(() => {
-            squares[bulletIndex].classList.remove('explosion')
-          }, 200)
-          clearInterval(bulletIntervalId)
-
-        }
-      }, 500)
-
-      bulletIntervalIds.push(bulletIntervalId)
+      fire()
     }
   })
 

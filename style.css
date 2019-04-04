@@ -51,22 +51,19 @@ h1 {
   width: 5.66%;
   /* border: 1px solid white; */
   margin: 2px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .activeAlien {
   background-image: url('images/alienimage.png');
-  background-size: contain;
-  background-repeat: no-repeat;
   /* padding: 4px; */
 }
 
-.grid div.spaceship {
+.spaceship {
   background-image: url('images/userspaceshipone.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  padding: 0;
-  margin: 0;
+  background-size: 117%;
   -webkit-animation-name: spaceboots;
   -webkit-animation-duration: 2s;
   -webkit-transform-origin: 50% 50%;
@@ -76,16 +73,10 @@ h1 {
 
 .bullet {
   background-image: url('images/userbulletone.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 
 .bomb {
   background-image: url('images/rocket.png');
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 .score, .lives {
@@ -128,9 +119,6 @@ h1 {
 
 .explosion {
   background-image: url('images/explosion-two.png');
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 .hidden {
