@@ -1,6 +1,6 @@
 console.log('JS loaded')
 
-//need to ad alienBombIds array and do the same as i did for bullets to make bombs stop properly
+//need to add alienBombIds array and do the same as I did for bullets to make bombs stop properly?
 
 document.addEventListener('DOMContentLoaded', () => {
   const grid = document.querySelector('.grid')
@@ -23,15 +23,17 @@ document.addEventListener('DOMContentLoaded', () => {
   let spaceshipIndex = 217
   let gameInPlay = true
   let moveAliensTimerId
+  // let alienBombMovementId
+  let alienBombMovementIds = []
   let alienBombId
-  let bulletIndex
+  // let bulletIndex
   let bulletIntervalIds = [] // created array to store multiple ids so they can all be cleared
 
   start.innerText = 'Play game'
 
   // Start game function
   function gameInit() {
-    squares.forEach(square => square.classList.remove('activeAlien', 'explosion', 'spaceship', 'bullet'))
+    squares.forEach(square => square.classList.remove('activeAlien', 'explosion', 'spaceship', 'bullet', 'bomb'))
     console.log(squares.map(square => square.className).join(''))
     gameInPlay = true
     grid.classList.remove('hidden')
@@ -41,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     currentAlienMove = 0
     alienArray = alienStart.slice()
     createAlien()
-    moveAliensTimerId = setInterval(moveAliens, 700)
+    moveAliensTimerId = setInterval(moveAliens, 600)
     alienBombId = setInterval(alienBomb, 500)
     spaceshipIndex = 217
     squares[spaceshipIndex].classList.add('spaceship')
@@ -64,8 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // USER SPACESHIP ===========================================================
-
-  // Create function to move user spaceship ----------------------------------
   function moveSpaceship() {
     // find the square with the class of spaceship
     const spaceship = squares.find(square => square.classList.contains('spaceship'))
@@ -86,7 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // console.log(alienArray)
 
   // Create function to move aliens -------------------------------------------
-
   function moveAliens() {
     // Loop through aliens
     alienArray.forEach(alien => {
@@ -114,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // const alienBombId = setInterval(() => {
     let bombIndex = alienArray[Math.floor(Math.random() * alienArray.length)]
 
-    const alienBombMovementId = setInterval(() => {
+    const alienBombMovementId = setInterval(() => { // problem with stopping this interval
       if (bombIndex + width <= 300) { //Changed to <= 500 as it was killing user too early when <= 210
         squares[bombIndex].classList.remove('bomb')
         bombIndex += width
@@ -131,7 +130,10 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(alienBombMovementId)
         loseLife()
       }
+      console.log('hello')
     }, 500)
+    alienBombMovementIds.push(alienBombMovementId)
+
     // }, 2000)
   }
 
@@ -158,6 +160,8 @@ document.addEventListener('DOMContentLoaded', () => {
     alienBombId = null
     clearInterval(moveAliensTimerId)
     moveAliensTimerId = null
+    alienBombMovementIds.forEach(alienBombMovementId => clearInterval(alienBombMovementId))
+    alienBombMovementIds = []
     bulletIntervalIds.forEach(bulletIntervalId => clearInterval(bulletIntervalId))
     bulletIntervalIds = [] // store in array so we can loop through array to clear intervals
     endMessage.classList.remove('hidden')
@@ -177,6 +181,8 @@ document.addEventListener('DOMContentLoaded', () => {
     alienBombId = null
     clearInterval(moveAliensTimerId)
     moveAliensTimerId = null
+    alienBombMovementIds.forEach(alienBombMovementId => clearInterval(alienBombMovementId))
+    alienBombMovementIds = []
     bulletIntervalIds.forEach(bulletIntervalId => clearInterval(bulletIntervalId))
     bulletIntervalIds = [] // store in array so we can loop through array to clear intervals
     endMessageWin.classList.remove('hidden')
@@ -249,7 +255,6 @@ document.addEventListener('DOMContentLoaded', () => {
           squares[bulletIndex].classList.add('explosion') // turn this into explosion function?
           setTimeout(() => {
             squares[bulletIndex].classList.remove('explosion')
-            console.log('hello')
           }, 200)
           clearInterval(bulletIntervalId)
 
@@ -259,9 +264,6 @@ document.addEventListener('DOMContentLoaded', () => {
       bulletIntervalIds.push(bulletIntervalId)
     }
   })
-
-
-
 
 
   start.addEventListener('click', gameInit)
