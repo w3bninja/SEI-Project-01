@@ -9,7 +9,7 @@ body {
   flex-direction: column;
   justify-content: center;
   margin: 0;
-  background-image: url('https://media.giphy.com/media/aqkJ9q160Zmta/giphy.gif');
+  background-image: url('https://www.dronstudy.com/wp-content/uploads//2017/11/dark-background-with-star-like-dots_bkpaotdgh__F0000.png');
   background-size: cover;
   font-family: 'Exo 2', sans-serif;
 }
@@ -33,8 +33,8 @@ h1 {
   height: 500px;
   width: 500px;
   display: flex;
-  opacity: 0.8;
-  background-color: black;
+  /* opacity: 0.8; */
+  /* background-color: black; */
   /* flex-grow: 1; */
   align-items: center;
   flex-wrap: wrap;
@@ -42,7 +42,7 @@ h1 {
   margin-bottom: 50px;
   /* max-height: 500px;
   max-width: 500px; */
-  border-bottom: 5px solid #FF6347;
+  border-bottom: 5px solid #01fe01;
 }
 
 .grid div {
@@ -54,7 +54,7 @@ h1 {
 }
 
 .activeAlien {
-  background-image: url('images/alien.png');
+  background-image: url('images/alienimage.png');
   background-size: contain;
   background-repeat: no-repeat;
   /* padding: 4px; */
@@ -103,7 +103,7 @@ h1 {
 
 
 .endMessage, .endMessageWin {
-  color: #FF6347;
+  color: #ff5b2f;
   font-size: 34px;
   text-align: center;
   margin-top: 20px;

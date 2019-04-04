@@ -1,7 +1,3 @@
-console.log('JS loaded')
-
-//need to add alienBombIds array and do the same as I did for bullets to make bombs stop properly?
-
 document.addEventListener('DOMContentLoaded', () => {
   const grid = document.querySelector('.grid')
   const scoreId = document.getElementById('scoreId')
@@ -23,9 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
   let spaceshipIndex = 217
   let gameInPlay = true
   let moveAliensTimerId
-  // let alienBombMovementId
   let alienBombMovementIds = []
   let alienBombId
+  // let bulletIndex
+  // let bulletIntervalId
   let bulletIntervalIds = [] // created array to store multiple ids so they can all be cleared
 
   start.innerText = 'Play game'
@@ -43,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     alienArray = alienStart.slice()
     createAlien()
     moveAliensTimerId = setInterval(moveAliens, 600)
-    alienBombId = setInterval(alienBomb, 400)
+    alienBombId = setInterval(alienBomb, 450)
     spaceshipIndex = 217
     squares[spaceshipIndex].classList.add('spaceship')
     livesLeft = 3 // needs to be updated so this listens to livesleft at top of code
@@ -52,9 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     livesId.innerText = 3
     endMessage.classList.add('hidden')
     endMessageWin.classList.add('hidden')
-    // bulletAudio()
     // collisionTop()
-
   }
 
   // Create grid --------------------------------------------------------------
@@ -75,16 +70,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ALIENS ===================================================================
-  // Create alien array
-  function createAlien() {
+  function createAlien() { // create alien array
     alienArray.forEach(alien => {
       // console.log('alien array foreach', squares[alien])
       squares[alien].classList.add('activeAlien')
     })
   }
-  // console.log(alienArray)
 
-  // Create function to move aliens -------------------------------------------
   function moveAliens() {
     alienArray.forEach(alien => {
       squares[alien].classList.remove('activeAlien') // loop through aliens & remove all aliens
@@ -101,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // let bottomAliens = alienArray.slice(20)
   }
 
-  // ALIEN DROP BOMB Function -------------------------------------------------
   function alienBomb() {
     // const alienBombId = setInterval(() => {
     let bombIndex = alienArray[Math.floor(Math.random() * alienArray.length)]
@@ -143,10 +134,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // function collisionTop() {
-  //   if (bulletIndex.some(bullet => bullet >= 14)) {
-  //     bulletIndex.classList.add('explosion')
-  //   }
+  // function collision() {
+  //   squares[bulletIndex].classList.add('explosion') // turn this into explosion function?
+  //   setTimeout(() => {
+  //     squares[bulletIndex].classList.remove('explosion')
+  //   }, 200)
+  //   clearInterval(bulletIntervalId)
   // }
 
   function gameOver() {
@@ -200,12 +193,12 @@ document.addEventListener('DOMContentLoaded', () => {
     audio.src = 'sounds/017_9.wav'
     audio.play()
   }
-  // 
+  //
   // function loseLifeAudio() {
   //   audio.src = 'sounds/003_12.wav'
   // }
 
-  // Add event listener to move user moveSpaceship ---------------------------
+  // Event listener to move user spaceship =============================
   document.addEventListener('keydown', (e) => {
     switch(e.keyCode) {
       case 37:
@@ -242,6 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (squares[bulletIndex].classList.contains('activeAlien')) {
           squares[bulletIndex].classList.remove('bullet')
           squares[bulletIndex].classList.remove('activeAlien')
+          // collision()
           squares[bulletIndex].classList.add('explosion') // turn this into explosion function?
           setTimeout(() => {
             squares[bulletIndex].classList.remove('explosion')
@@ -257,6 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (bulletIndex <= 14 && bulletIndex >= 0) {
           squares[bulletIndex].classList.remove('bullet')
+          // collision()
           squares[bulletIndex].classList.add('explosion') // turn this into explosion function?
           setTimeout(() => {
             squares[bulletIndex].classList.remove('explosion')
