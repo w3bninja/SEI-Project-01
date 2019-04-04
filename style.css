@@ -9,7 +9,7 @@ body {
   flex-direction: column;
   justify-content: center;
   margin: 0;
-  background-image: url('https://www.dronstudy.com/wp-content/uploads//2017/11/dark-background-with-star-like-dots_bkpaotdgh__F0000.png');
+  background-image: url('images/backgroundimage.png');
   background-size: cover;
   font-family: 'Exo 2', sans-serif;
 }
@@ -42,7 +42,7 @@ h1 {
   margin-bottom: 50px;
   /* max-height: 500px;
   max-width: 500px; */
-  border-bottom: 5px solid #01fe01;
+  border-bottom: 3px solid #01fe01;
 }
 
 .grid div {
@@ -93,7 +93,6 @@ h1 {
   width: 150px;
   font-size: 20px;
   color: white;
-  margin: 10px 0;
 }
 
 .lives {
@@ -103,7 +102,7 @@ h1 {
 
 
 .endMessage, .endMessageWin {
-  color: #ff5b2f;
+  color: #ff6c37;
   font-size: 34px;
   text-align: center;
   margin-top: 20px;

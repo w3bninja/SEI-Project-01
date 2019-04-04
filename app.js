@@ -21,8 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let moveAliensTimerId
   let alienBombMovementIds = []
   let alienBombId
-  // let bulletIndex
-  // let bulletIntervalId
+  let bulletIndex
+  let bulletIntervalId
   let bulletIntervalIds = [] // created array to store multiple ids so they can all be cleared
 
   start.innerText = 'Play game'
@@ -114,6 +114,11 @@ document.addEventListener('DOMContentLoaded', () => {
         squares[bombIndex].classList.remove('bomb')
         clearInterval(alienBombMovementId)
         loseLife()
+        squares[bulletIndex].classList.add('explosion') // turn this into explosion function?
+        setTimeout(() => {
+          squares[bulletIndex].classList.remove('explosion')
+        }, 200)
+        clearInterval(bulletIntervalId)
         // loseLifeAudio()
       }
       console.log('hello')
