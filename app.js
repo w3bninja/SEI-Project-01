@@ -122,6 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function gameOver(message) {
     gameInPlay = false
+    gameOverAudio() 
     clearInterval(alienBombId)
     alienBombId = null
     clearInterval(moveAliensTimerId)
@@ -150,12 +151,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function alienBombAudio() {
-    audio.src = 'sounds/001_1.wav'
+    audio.src = 'sounds/005_14.wav'
     audio.play()
   }
   //
   function loseLifeAudio() {
     audio.src = 'sounds/009_18.wav'
+    audio.play()
+  }
+
+  function gameOverAudio() {
+    audio.src = 'sounds/016_8.wav'
     audio.play()
   }
 
