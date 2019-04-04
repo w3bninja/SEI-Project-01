@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     alienArray = alienStart.slice()
     createAlien()
     moveAliensTimerId = setInterval(moveAliens, 600)
-    alienBombId = setInterval(alienBomb, 500)
+    alienBombId = setInterval(alienBomb, 400)
     spaceshipIndex = 217
     squares[spaceshipIndex].classList.add('spaceship')
     livesLeft = 3 // needs to be updated so this listens to livesleft at top of code
@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
     bulletIntervalIds.forEach(bulletIntervalId => clearInterval(bulletIntervalId))
     bulletIntervalIds = [] // store in array so we can loop through array to clear intervals
     endMessage.classList.remove('hidden')
-    endMessage.innerText = 'Game Over'
+    endMessage.innerHTML = 'Game Over <i class="far fa-thumbs-down"></i>'
     grid.classList.add('hidden')
     start.innerText = 'Play game'
     start.classList.remove('hidden')
@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
     bulletIntervalIds.forEach(bulletIntervalId => clearInterval(bulletIntervalId))
     bulletIntervalIds = [] // store in array so we can loop through array to clear intervals
     endMessageWin.classList.remove('hidden')
-    endMessageWin.innerText = 'Nice one, you win!'
+    endMessageWin.innerHTML = '<i class="far fa-hand-spock"></i> You win! <i class="far fa-hand-spock"></i>'
     grid.classList.add('hidden')
     start.innerText = 'Play game'
     start.classList.remove('hidden')
