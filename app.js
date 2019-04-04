@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
     livesText = document.querySelector('.lives'),
     endMessage = document.querySelector('.endMessage'),
     start = document.querySelector('.start'),
-    endMessageWin = document.querySelector('.endMessageWin'),
     audio = document.querySelector('audio'),
     width = 15,
     alienStart = [0,1,2,3,4,5,6,7,8,9,10,15,16,17,18,19,20,21,22,23,24,25,30,31,32,33,34,35,36,37,38,39,40],
@@ -19,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     spaceshipIndex = 217,
     gameInPlay = true,
     moveAliensTimerId,
-    alienBombMovementIds = [],
+    // alienBombMovementIds = [],
     alienBombId
   // let bulletIntervalId
   // let bulletIntervalIds = [] // created array to store multiple ids so they can all be cleared
@@ -39,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     alienArray = alienStart.slice()
     createAlien()
     moveAliensTimerId = setInterval(moveAliens, 600)
-    alienBombId = setInterval(alienBomb, 450)
+    alienBombId = setInterval(alienBomb, 1000)
     spaceshipIndex = 217
     squares[spaceshipIndex].classList.add('spaceship')
     livesLeft = 3 // needs to be updated so this listens to livesleft at top of code
@@ -47,14 +46,13 @@ document.addEventListener('DOMContentLoaded', () => {
     scoreId.innerText = 0
     livesId.innerText = 3
     endMessage.classList.add('hidden')
-    endMessageWin.classList.add('hidden')
-    // collisionTop()
   }
 
   // Create grid --------------------------------------------------------------
   for(let i = 0; i < width * width; i++) {
     const square = document.createElement('div')
     if (i < width) square.classList.add('ceiling')
+    if (i > width**2 - width -1) square.classList.add('floor')
     squares.push(square) //creates new array of divs
     grid.appendChild(square)
   }
@@ -98,15 +96,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let bombIndex = alienArray[Math.floor(Math.random() * alienArray.length)]
     alienBombAudio()
 
-    const alienBombMovementId = setInterval(() => { // problem with stopping this interval
+    const alienBombMovementId = setInterval(() => {
       bombIndex = drawBullet(bombIndex, width, 'bomb')
       if (collision(bombIndex, 'spaceship', 'bomb', alienBombMovementId)) {
         loseLife()
       }
+      collision(bombIndex, 'floor', 'bomb', alienBombMovementId)
       console.log('hello')
-    }, 600)
-    alienBombMovementIds.push(alienBombMovementId)
-
+    }, 400)
     // }, 2000)
   }
 
@@ -187,11 +184,11 @@ document.addEventListener('DOMContentLoaded', () => {
     return index
   }
 
-  function collision(index, target, shot, interval){
+  function collision(index, target, shot, interval){ // causing user to die too early
     if (squares[index].classList.contains(target)) {
+      console.log(`At ${index}, ${target} hit by ${shot}`)
       squares[index].classList.remove(shot)
-      // collision()
-      squares[index].classList.add('explosion') // turn this into explosion function?
+      squares[index].classList.add('explosion')
       setTimeout(() => {
         squares[index].classList.remove('explosion')
       }, 200)
@@ -224,7 +221,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       collision(bulletIndex, 'ceiling', 'bullet', bulletIntervalId)
     }, 100)
-    // bulletIntervalIds.push(bulletIntervalId)
   }
 
   // USER BULLET ==============================================================
