@@ -19,10 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     gameInPlay = true,
     moveAliensTimerId,
     alienBombMovementId,
-    // alienBombMovementIds = [],
     alienBombId
-  // let bulletIntervalId
-  // let bulletIntervalIds = [] // created array to store multiple ids so they can all be cleared
 
   start.innerText = 'Play game'
 
@@ -49,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     endMessage.classList.add('hidden')
   }
 
-  // Create grid --------------------------------------------------------------
+  // CREATE GRID ===============================================================
   for(let i = 0; i < width * width; i++) {
     const square = document.createElement('div')
     if (i < width) square.classList.add('ceiling')
@@ -58,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     grid.appendChild(square)
   }
 
-  // USER SPACESHIP ===========================================================
+  // USER SPACESHIP ============================================================
   function moveSpaceship() {
     // find the square with the class of spaceship
     const spaceship = squares.find(square => square.classList.contains('spaceship'))
@@ -68,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     squares[spaceshipIndex].classList.add('spaceship')
   }
 
-  // ALIENS ===================================================================
+  // ALIENS ====================================================================
   function createAlien() { // create alien array
     alienArray.forEach(alien => {
       // console.log('alien array foreach', squares[alien])
@@ -76,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   }
 
+  // MOVE ALIENS ===============================================================
   function moveAliens() {
     alienArray.forEach(alien => {
       squares[alien].classList.remove('activeAlien') // loop through aliens & remove all aliens
@@ -92,6 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // let bottomAliens = alienArray.slice(20)
   }
 
+  // ALIEN BOMB ================================================================
   function alienBomb() {
     // const alienBombId = setInterval(() => {
     let bombIndex = alienArray[Math.floor(Math.random() * alienArray.length)]
@@ -105,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
       collision(bombIndex, 'floor', 'bomb', alienBombMovementId)
       console.log('hello')
       if(!gameInPlay) clearInterval(alienBombMovementId)
-    }, 600)
+    }, 500)
     // }, 2000)
   }
 
@@ -169,7 +168,8 @@ document.addEventListener('DOMContentLoaded', () => {
     return index
   }
 
-  function collision(index, target, shot, interval){ // causing user to die too early
+  // COLLISION =================================================================
+  function collision(index, target, shot, interval){
     if (squares[index].classList.contains(target)) {
       console.log(`At ${index}, ${target} hit by ${shot}`)
       squares[index].classList.remove(shot)
@@ -193,6 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
     scoreId.innerText = scoreTally
   }
 
+  // FIRE BULLET ===============================================================
   function fire(){
     let bulletIndex = spaceshipIndex
     const bulletIntervalId = setInterval(() => {
@@ -208,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 100)
   }
 
-  // USER BULLET ==============================================================
+  // USER BULLET ===============================================================
   document.addEventListener('keydown', (e) => {
     if(e.keyCode === 32) {
       bulletAudio()
@@ -216,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 
-  // Event listener to move user spaceship =============================
+  // USER SPACESHIP ============================================================
   document.addEventListener('keydown', (e) => {
     switch(e.keyCode) {
       case 37:
