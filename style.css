@@ -91,7 +91,7 @@ h1 {
   text-align: right;
 }
 
-.endMessage, .endMessageWin {
+.endMessage {
   color: #ff7f50;
   font-size: 34px;
   text-align: center;
@@ -109,8 +109,10 @@ h1 {
   font-weight: bold;
 }
 
-.reset:hover, .start:hover {
+.start:hover {
   cursor: pointer;
+  color: #ff7f50;
+  letter-spacing: 15px;
 }
 
 .explosion {

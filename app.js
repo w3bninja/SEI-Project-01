@@ -35,8 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
     currentAlienMove = 0
     alienArray = alienStart.slice()
     createAlien()
-    moveAliensTimerId = setInterval(moveAliens, 600)
-    alienBombId = setInterval(alienBomb, 1000)
+    moveAliensTimerId = setInterval(moveAliens, 400)
+    alienBombId = setInterval(alienBomb, 700)
     spaceshipIndex = 217
     squares[spaceshipIndex].classList.add('spaceship')
     livesLeft = 3 // needs to be updated so this listens to livesleft at top of code
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
       collision(bombIndex, 'floor', 'bomb', alienBombMovementId)
       console.log('hello')
       if(!gameInPlay) clearInterval(alienBombMovementId)
-    }, 500)
+    }, 400)
     // }, 2000)
   }
 
@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
       squares[index].classList.add('explosion')
       setTimeout(() => {
         squares[index].classList.remove('explosion')
-      }, 200)
+      }, 300)
       clearInterval(interval)
       return true
     } else return false
