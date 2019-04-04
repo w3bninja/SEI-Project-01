@@ -92,7 +92,7 @@ h1 {
 }
 
 .endMessage {
-  color: #ff7f50;
+  color: #ff4f00;
   font-size: 34px;
   text-align: center;
   margin-top: 20px;
@@ -111,7 +111,7 @@ h1 {
 
 .start:hover {
   cursor: pointer;
-  color: #ff7f50;
+  color: #ff4f00;
   letter-spacing: 15px;
 }
 

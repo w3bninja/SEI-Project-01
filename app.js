@@ -113,6 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (gameInPlay) livesLeft--
     if (livesLeft !== 0) {
       livesId.innerText = livesLeft
+      loseLifeAudio()
     } else {
       livesId.innerText = 0 // cheat here and use 0? sometimes lives keeps going below 0
       gameOver('Game Over <i class="far fa-thumbs-down"></i>')
@@ -149,13 +150,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function alienBombAudio() {
-    audio.src = 'sounds/017_9.wav'
+    audio.src = 'sounds/001_1.wav'
     audio.play()
   }
   //
-  // function loseLifeAudio() {
-  //   audio.src = 'sounds/003_12.wav'
-  // }
+  function loseLifeAudio() {
+    audio.src = 'sounds/009_18.wav'
+    audio.play()
+  }
 
   function drawBullet(index, next, shot){
     if(squares[index + next]) {
