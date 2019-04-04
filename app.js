@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     spaceshipIndex = 217,
     gameInPlay = true,
     moveAliensTimerId,
+    alienBombMovementId,
     // alienBombMovementIds = [],
     alienBombId
   // let bulletIntervalId
@@ -96,14 +97,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let bombIndex = alienArray[Math.floor(Math.random() * alienArray.length)]
     alienBombAudio()
 
-    const alienBombMovementId = setInterval(() => {
+    const alienBombMovementId = setInterval(() => { // interval isn't clearing properly on play again
       bombIndex = drawBullet(bombIndex, width, 'bomb')
       if (collision(bombIndex, 'spaceship', 'bomb', alienBombMovementId)) {
         loseLife()
       }
       collision(bombIndex, 'floor', 'bomb', alienBombMovementId)
       console.log('hello')
-    }, 400)
+      if(!gameInPlay) clearInterval(alienBombMovementId)
+    }, 600)
     // }, 2000)
   }
 
@@ -124,8 +126,11 @@ document.addEventListener('DOMContentLoaded', () => {
     alienBombId = null
     clearInterval(moveAliensTimerId)
     moveAliensTimerId = null
-    alienBombMovementIds.forEach(alienBombMovementId => clearInterval(alienBombMovementId))
-    alienBombMovementIds = []
+    clearInterval(alienBombMovementId)
+    alienBombMovementId = null
+    // moveAliensTimerId = null
+    // alienBombMovementIds.forEach(alienBombMovementId => clearInterval(alienBombMovementId))
+    // alienBombMovementIds = []
     // bulletIntervalIds.forEach(bulletIntervalId => clearInterval(bulletIntervalId))
     // bulletIntervalIds = [] // store in array so we can loop through array to clear intervals
     endMessage.classList.remove('hidden')
@@ -152,26 +157,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // function loseLifeAudio() {
   //   audio.src = 'sounds/003_12.wav'
   // }
-
-  // Event listener to move user spaceship =============================
-  document.addEventListener('keydown', (e) => {
-    switch(e.keyCode) {
-      case 37:
-        //left
-        if(spaceshipIndex % width > 0) {
-          spaceshipIndex--
-          moveSpaceship()
-        }
-        break
-      case 39:
-        //right
-        if(spaceshipIndex % width < width - 1) {
-          spaceshipIndex++
-          moveSpaceship()
-        }
-        break
-    }
-  })
 
   function drawBullet(index, next, shot){
     if(squares[index + next]) {
@@ -228,6 +213,26 @@ document.addEventListener('DOMContentLoaded', () => {
     if(e.keyCode === 32) {
       bulletAudio()
       fire()
+    }
+  })
+
+  // Event listener to move user spaceship =============================
+  document.addEventListener('keydown', (e) => {
+    switch(e.keyCode) {
+      case 37:
+        //left
+        if(spaceshipIndex % width > 0) {
+          spaceshipIndex--
+          moveSpaceship()
+        }
+        break
+      case 39:
+        //right
+        if(spaceshipIndex % width < width - 1) {
+          spaceshipIndex++
+          moveSpaceship()
+        }
+        break
     }
   })
 
