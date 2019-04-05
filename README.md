@@ -41,29 +41,29 @@ _How the game works. Break the process down into steps. Add a screenshot for eac
 
 1. The game begins with a simple landing page. Click on 'Play game' to start the game.
 
-![Landing Page] (https://user-images.githubusercontent.com/35655626/55621277-fa710d00-5794-11e9-8894-3cdc900f6e7e.png)
+![Landing Page](https://user-images.githubusercontent.com/35655626/55621277-fa710d00-5794-11e9-8894-3cdc900f6e7e.png)
 
 1. On page load, the aliens will start moving towards the players spaceship and dropping bombs periodically.
 
-![Game Page] (https://user-images.githubusercontent.com/35655626/55621446-6eabb080-5795-11e9-89b2-946a727774df.png)
+![Game Page](https://user-images.githubusercontent.com/35655626/55621446-6eabb080-5795-11e9-89b2-946a727774df.png)
 
 1. Use the left and right arrow keys to dodge the alien bombs.
 
 1. Use spacebar to fire bullets upwards to kill the aliens from your current position.
 
-![Game Page - Fire Bullets] (https://user-images.githubusercontent.com/35655626/55621697-2476ff00-5796-11e9-9b52-6b696a11848c.png)
+![Game Page - Fire Bullets](https://user-images.githubusercontent.com/35655626/55621697-2476ff00-5796-11e9-9b52-6b696a11848c.png)
 
 1. Each time you kill an alien, your score will increase by one (max score is 33).
 
-![Game Page - Score] (https://user-images.githubusercontent.com/35655626/55621885-a5ce9180-5796-11e9-88d0-de428dbccfac.png)
+![Game Page - Score](https://user-images.githubusercontent.com/35655626/55621885-a5ce9180-5796-11e9-88d0-de428dbccfac.png)
 
 1. You start each game with three lives, each time you're hit by an alien bomb you lose a life. If you lose all three lives, the game will end, taking you to the screen below. Click 'Play game' to play again.
 
-![Game Page - Game Over] (https://user-images.githubusercontent.com/35655626/55622115-402ed500-5797-11e9-81e2-beedc68a2c9e.png)
+![Game Page - Game Over](https://user-images.githubusercontent.com/35655626/55622115-402ed500-5797-11e9-81e2-beedc68a2c9e.png)
 
 1. Kill all of the aliens by shooting them to win the game. This will take you to the following screen. Click 'Play game' to play again.
 
-![Game Page - Win] (https://user-images.githubusercontent.com/35655626/55622230-884df780-5797-11e9-9f0b-7abdbd81cec7.png)
+![Game Page - Win](https://user-images.githubusercontent.com/35655626/55622230-884df780-5797-11e9-9f0b-7abdbd81cec7.png)
 
 
 ## Process
