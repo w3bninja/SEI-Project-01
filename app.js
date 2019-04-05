@@ -55,6 +55,26 @@ document.addEventListener('DOMContentLoaded', () => {
     grid.appendChild(square)
   }
 
+  // AUDIO =====================================================================
+  function bulletAudio() {
+    audio.src = 'sounds/004_13.wav'
+    audio.play()
+  }
+
+  function alienBombAudio() {
+    audio.src = 'sounds/005_14.wav'
+    audio.play()
+  }
+  //
+  function loseLifeAudio() {
+    audio.src = 'sounds/009_18.wav'
+    audio.play()
+  }
+
+  function gameOverAudio() {
+    audio.src = 'sounds/016_8.wav'
+    audio.play()
+  }
   // USER SPACESHIP ============================================================
   function moveSpaceship() {
     // find the square with the class of spaceship
@@ -143,26 +163,6 @@ document.addEventListener('DOMContentLoaded', () => {
     livesId.classList.remove('hidden')
     // livesLeft = 0
     livesId.innerText = livesLeft
-  }
-
-  function bulletAudio() {
-    audio.src = 'sounds/004_13.wav'
-    audio.play()
-  }
-
-  function alienBombAudio() {
-    audio.src = 'sounds/005_14.wav'
-    audio.play()
-  }
-  //
-  function loseLifeAudio() {
-    audio.src = 'sounds/009_18.wav'
-    audio.play()
-  }
-
-  function gameOverAudio() {
-    audio.src = 'sounds/016_8.wav'
-    audio.play()
   }
 
   function drawBullet(index, next, shot){
