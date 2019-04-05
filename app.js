@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     alienArray = alienStart.slice()
     createAlien()
     moveAliensTimerId = setInterval(moveAliens, 400)
-    alienBombId = setInterval(alienBomb, 700)
+    alienBombId = setInterval(alienBomb, 600)
     spaceshipIndex = 217
     squares[spaceshipIndex].classList.add('spaceship')
     livesLeft = 3 // needs to be updated so this listens to livesleft at top of code
