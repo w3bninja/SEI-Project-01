@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let bombIndex = alienArray[Math.floor(Math.random() * alienArray.length)]
     alienBombAudio()
 
-    const alienBombMovementId = setInterval(() => { // interval isn't clearing properly on play again
+    const alienBombMovementId = setInterval(() => {
       bombIndex = drawBullet(bombIndex, width, 'bomb')
       if (collision(bombIndex, 'spaceship', 'bomb', alienBombMovementId)) {
         loseLife()
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function gameOver(message) {
     gameInPlay = false
-    gameOverAudio() 
+    gameOverAudio()
     clearInterval(alienBombId)
     alienBombId = null
     clearInterval(moveAliensTimerId)
