@@ -112,7 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ALIEN BOMB ================================================================
   function alienBomb() {
-    // const alienBombId = setInterval(() => {
     let bombIndex = alienArray[Math.floor(Math.random() * alienArray.length)]
     alienBombAudio()
 
@@ -125,7 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log('hello')
       if(!gameInPlay) clearInterval(alienBombMovementId)
     }, 400)
-    // }, 2000)
   }
 
   // Lose life function ========================================================
