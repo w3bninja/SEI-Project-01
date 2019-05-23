@@ -18,7 +18,7 @@ Made with Vanilla Javascript
 
 ## Overview
 
-[Hosted link to game](https://emma3333.github.io/SEI-Project-01/)
+[Link to game](https://emma3333.github.io/SEI-Project-01/)
 
 ### Introduction
 My Space Invaders game is a take on the classic Space Invaders game from the 80s. The aim of the game is for the user to shoot the invading alien armada before it reaches the players spaceship.
@@ -30,7 +30,7 @@ The player wins by destroying the alien armada. The player has three lives, and 
 The aim of the game is to achieve the highest score before the aliens reach the spaceship.
 
 ### Timeframe
-7 days
+* 7 days
 
 
 ### Brief
@@ -49,7 +49,6 @@ The aim of the game is to achieve the highest score before the aliens reach the 
 * Player bullet: press spacebar to fire bullet
 
 ### Game Instructions
-_How the game works. Break the process down into steps. Add a screenshot for each step_
 
 * The game begins with a simple landing page. Click on 'Play game' to start the game.
 
@@ -107,17 +106,14 @@ Finally, after refactoring, I added a game over function and initialise game fun
 
 Once the game was working and bug-free, I focused on the CSS to improve the look of the game.
 
-_Describe the process of building the game. How did you get started? How did you manage your time? How would you do things next time?_
-
 ## Challenges
 The biggest challenge for making Space Invaders was dealing with set intervals. The re-start function was the most challenging due to the amount of set intervals used throughout the game, and ensuring these were all cleared for the reset function to work without any bugs.
 
 The movement of large groups of aliens in formation was also challenging and took a lot of pseudo-coding to break down into manageable steps.
-_Describe the biggest challenges. How did you overcome them? Did you decide to pivot because of time constraints? What did you learn from these problems?_
+
 
 ## Wins
-I'm really pleased with what I've achieved after three weeks of learning Javascript. In particular, my understanding of arrays and set intervals improved dramatically over the seven days.
-_Describe the wins. What are you most proud of? What did this project help you to understand the most?_
+Really pleased with what I achieved after three weeks of learning Javascript. In particular, my understanding of arrays and set intervals improved dramatically over the seven days.
 
 ## Future features
 The three main improvements I'd like to make are as follows. One: Adding a leaderboard using localStorage to keep a track of high scores. Two: make the game responsive. Three: Make the game more enjoyable for users by adding different levels of difficulty.
