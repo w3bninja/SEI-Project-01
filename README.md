@@ -122,7 +122,6 @@ function alienBomb() {
       loseLife()
     }
     collision(bombIndex, 'floor', 'bomb', alienBombMovementId)
-    console.log('hello')
     if(!gameInPlay) clearInterval(alienBombMovementId)
   }, 400)
 }
