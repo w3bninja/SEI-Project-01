@@ -168,7 +168,7 @@ function gameInit() {
   alienBombId = setInterval(alienBomb, 600)
   spaceshipIndex = 217
   squares[spaceshipIndex].classList.add('spaceship')
-  livesLeft = 3 
+  livesLeft = 3
   scoreTally = 0
   scoreId.innerText = 0
   livesId.innerText = 3
