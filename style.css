@@ -11,6 +11,7 @@ body {
   margin: 0;
   background-image: url('images/backgroundimage.png');
   background-size: cover;
+	background-position:bottom center;
   font-family: 'Exo 2', sans-serif;
 }
 
@@ -28,6 +29,8 @@ header {
 h1 {
   margin: 0;
 }
+
+.start-screen{position:absolute; top:0; left:0; right:0; bottom:0; z-index:1; background:url('images/bg2.png') top center; background-size:cover; text-align:center; padding-top:10vh;}
 
 .grid {
   height: 500px;
@@ -56,12 +59,9 @@ h1 {
 
 .spaceship {
   background-image: url('images/userspaceshipone.png');
-  background-size: 117%;
-  -webkit-animation-name: spaceboots;
-  -webkit-animation-duration: 2s;
-  -webkit-transform-origin: 50% 50%;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-timing-function: linear;
+	height:20.67%!important;
+	width:5.67%!important;
+  background-size: 217%;
 }
 
 .bullet {

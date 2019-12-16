@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     endMessage = document.querySelector('.endMessage'),
     start = document.querySelector('.start'),
     audio = document.querySelector('audio'),
+	header = document.querySelector('header'),
+	content = document.querySelector('.content'),
     width = 15,
     alienStart = [0,1,2,3,4,5,6,7,8,9,10,15,16,17,18,19,20,21,22,23,24,25,30,31,32,33,34,35,36,37,38,39,40],
     alienMovement = [1,1,1,1,width,-1,-1,-1,-1,width],
@@ -32,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     scoreText.classList.remove('hidden')
     livesText.classList.remove('hidden')
     start.classList.add('hidden')
+	content.classList.add('hidden')
     currentAlienMove = 0
     alienArray = alienStart.slice()
     createAlien()
@@ -155,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
     endMessage.classList.remove('hidden')
     endMessage.innerHTML = message
     grid.classList.add('hidden')
+	header.classList.add('hidden')
     start.innerText = 'Play game'
     start.classList.remove('hidden')
     scoreId.classList.remove('hidden')
@@ -208,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
         alienDeath(bulletIndex)
         updateScore()
         if (alienArray.length === 0) {
-          gameOver('<i class="far fa-hand-spock"></i> You win! <i class="far fa-hand-spock"></i>')
+          gameOver('<img src="images/end.png">')
         }
       }
       collision(bulletIndex, 'ceiling', 'bullet', bulletIntervalId)
@@ -246,5 +250,15 @@ document.addEventListener('DOMContentLoaded', () => {
   start.addEventListener('click', gameInit)
 
   // KEEP BRACKETS BELOW
+  
 
 })
+
+
+
+$(function(){
+	$('.letsgo').on('click', function(e){
+		e.preventDefault();
+		$('.start-screen').hide();
+	});
+});
