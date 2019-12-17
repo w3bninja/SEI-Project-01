@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
     currentAlienMove++     // increment currentMove
     if (currentAlienMove === alienMovement.length) currentAlienMove = 0
     if (alienArray.some(alien => alien >= 210)) {
-      gameOver('Game Over <i class="far fa-thumbs-down"></i>')
+      gameOver('<img src="./images/end.png">')//lose
     }
     // let bottomAliens = alienArray.slice(20)
   }
@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
       loseLifeAudio()
     } else {
       livesId.innerText = 0 // cheat here and use 0? sometimes lives keeps going below 0
-      gameOver('Game Over <i class="far fa-thumbs-down"></i>')
+      gameOver('<img src="./images/end.png">')//lose
     }
   }
 
@@ -212,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
         alienDeath(bulletIndex)
         updateScore()
         if (alienArray.length === 0) {
-          gameOver('<img src="images/end.png">')
+          gameOver('<img src="./images/end.png">')
         }
       }
       collision(bulletIndex, 'ceiling', 'bullet', bulletIntervalId)
