@@ -3,32 +3,55 @@
   <head>
     <meta charset="utf-8">
     <title>Invasion from Planet Boring</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Exo+2:400,500,700,800" rel="stylesheet">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="app.js" charset="utf-8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typeit@4.3.0/dist/typeit.min.js"></script>
+    <script src="./assets/js/app.js" charset="utf-8"></script>
     
     
   </head>
   <body>
-  	<div class="start-screen">
-  		<div class="start-content">
-  			<a href="#" class="letsgo"><img src="./images/title.png"></a>
-  		</div>
-  	</div>
-   <audio src="sounds/004_13.wav" autoplay="true"></audio>
-    <header>
-      <h1 id="heading"><img src="./images/title2.png"></h1>
-      
-    </header>
-    <div class="content"><img src="./images/content.png"></div>
-    <main>
-      <div class="score hidden">Score: <span id="scoreId"></span></div>
-      <div class="lives hidden">Lives left: <span id="livesId"></span></div>
-      <div class="countdown"></div>
-      <div class="endMessage"></div>
-      <div class="grid hidden"></div>
-      <div class="start"></div>
-    </main>
+  	<div class="stars"></div>
+	<div class="twinkling"></div>
+	<div class="bg-gradient"></div>
+	<div class="full-bg"></div>
+ 	
+ 	
+		<div class="start-screen">
+			<div class="stars"></div>
+			<div class="twinkling"></div>
+			<div class="bg-gradient"></div>
+			<div class="start-content">
+				<a href="#" class="letsgo"><img src="./assets/images/title.png"></a>
+			</div>
+		</div>
+   	<div class="game">
+	   <audio src="./assets/sounds/004_13.wav" autoplay></audio>
+		<header>
+		  <h1 id="heading"><img src="./assets/images/title2.png"></h1>
+
+		</header>
+		<div class="content">
+			<div class="row">
+				<div class="col-sm-4">
+					<img src="./assets/images/redd.png">
+				</div>
+				<div class="col-sm-8">
+					<h3>We have intercepted the following transmission.</h3>
+					<div class="text1">An intergalactic armada of Badvertising is heading toward our planet. Join Munchkin as she battles the boring, mediocre and cliché invaders.</div>
+				</div>
+			</div>
+		</div>
+		<main>
+		  <div class="score hidden">Score: <span id="scoreId"></span></div>
+		  <div class="lives hidden">Lives left: <span id="livesId"></span></div>
+		  <div class="countdown"></div>
+		  <div class="endMessage"></div>
+		  <div class="grid hidden"></div>
+		  <div class="start"></div>
+		</main>
+    </div>
   </body>
 </html>

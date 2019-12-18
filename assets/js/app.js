@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     grid.classList.remove('hidden')
     scoreText.classList.remove('hidden')
     livesText.classList.remove('hidden')
+	header.classList.remove('hidden')
     start.classList.add('hidden')
 	content.classList.add('hidden')
     currentAlienMove = 0
@@ -60,22 +61,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // AUDIO =====================================================================
   function bulletAudio() {
-    audio.src = 'sounds/004_13.wav'
+    audio.src = './assets/sounds/004_13.wav'
     audio.play()
   }
 
   function alienBombAudio() {
-    audio.src = 'sounds/005_14.wav'
+    audio.src = './assets/sounds/005_14.wav'
     audio.play()
   }
   //
   function loseLifeAudio() {
-    audio.src = 'sounds/009_18.wav'
+    audio.src = './assets/sounds/009_18.wav'
     audio.play()
   }
 
   function gameOverAudio() {
-    audio.src = 'sounds/016_8.wav'
+    audio.src = './assets/sounds/016_8.wav'
     audio.play()
   }
   // USER SPACESHIP ============================================================
@@ -108,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     currentAlienMove++     // increment currentMove
     if (currentAlienMove === alienMovement.length) currentAlienMove = 0
     if (alienArray.some(alien => alien >= 210)) {
-      gameOver('<img src="./images/end.png">')//lose
+      gameOver('<img src="./assets/images/end.png">')//lose
     }
     // let bottomAliens = alienArray.slice(20)
   }
@@ -137,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
       loseLifeAudio()
     } else {
       livesId.innerText = 0 // cheat here and use 0? sometimes lives keeps going below 0
-      gameOver('<img src="./images/end.png">')//lose
+      gameOver('<img src="./assets/images/end.png">')//lose
     }
   }
 
@@ -212,7 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
         alienDeath(bulletIndex)
         updateScore()
         if (alienArray.length === 0) {
-          gameOver('<img src="./images/end.png">')
+          gameOver('<img src="./assets/images/end.png">')
         }
       }
       collision(bulletIndex, 'ceiling', 'bullet', bulletIntervalId)
@@ -260,5 +261,15 @@ $(function(){
 	$('.letsgo').on('click', function(e){
 		e.preventDefault();
 		$('.start-screen').hide();
+		$('.full-bg').addClass('bg');
+		$('.text1').typeIt({
+			 strings: [
+				 'In 2011 Turner Industries worked together with a small company called Industrial Mobility, a pioneer in process management technology, at a client facility in south Texas.'
+			 ],
+			 speed: 50,
+			 autoStart: false,
+			 loop: false,
+			 breakLines: false
+		});
 	});
 });
