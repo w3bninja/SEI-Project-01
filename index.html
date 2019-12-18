@@ -2,9 +2,20 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Invasion from Planet Boring</title>
+    <title>Red Six Media | Invasion from Planet Boring</title>
+	<meta name="Description" content="We are an award-winning, full-service advertising agency with services ranging from advertising &amp; graphic design to web design &amp; brand strategy.">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	
+	<meta property="og:image" content="https://exxon.netlify.com/assets/img/facebook-share1.jpg"/>
+	<meta property="og:title" content="Red Six Media | Invasion from Planet Boring"/>
+	<meta property="og:description" content="We are an award-winning, full-service advertising agency with services ranging from advertising &amp; graphic design to web design &amp; brand strategy."/>
+	<meta property="og:type" content="website"/>
+	<meta property="og:url" content="https://redsixmas.com/"/>
+	
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Exo+2:400,500,700,800" rel="stylesheet">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/typeit@4.3.0/dist/typeit.min.js"></script>
@@ -13,6 +24,9 @@
     
   </head>
   <body>
+	  <audio id="player" autoplay="autoplay" loop="loop" preload="auto">
+	  <source src="./assets/sounds/jinglebells.mp3" type="audio/mpeg"/>
+	</audio>
   	<div class="stars"></div>
 	<div class="twinkling"></div>
 	<div class="bg-gradient"></div>
@@ -27,11 +41,17 @@
 				<a href="#" class="letsgo"><img src="./assets/images/title.png"></a>
 			</div>
 		</div>
+	  <div class="button-sound"><div id="button"><i class="fa fa-volume-up"></i></div></div>
    	<div class="game">
-	   <audio src="./assets/sounds/004_13.wav" autoplay></audio>
+		
+	   <audio src="./assets/sounds/004_13.wav"></audio>
 		<header>
 		  <h1 id="heading"><img src="./assets/images/title2.png"></h1>
-
+<a class="play6 btn btn-default share s_twitter" title="Twitter" target="_blank" href="https://twitter.com/home?status=Learning%20Opens%20Doors%E2%80%94Energy%20Goes%20Far%20https%3A//youtu.be/On-qdPm11Xw" onclick="gtag('event', 'click', {'event_category' : 'share', 'event_label' : 'twitter'});"><i class="fa fa-twitter"></i></a>
+		<a class="btn btn-default share s_facebook" title="Facebook" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//youtu.be/On-qdPm11Xw" onclick="gtag('event', 'click', {'event_category' : 'share', 'event_label' : 'facebook'});"><i class="fa fa-facebook"></i></a>
+		<a class="btn btn-default share s_linkedin" title="Linkedin" target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//youtu.be/On-qdPm11Xw&title=Learning Opens Doors–Energy Goes Far&summary=&source=" onclick="gtag('event', 'click', {'event_category' : 'share', 'event_label' : 'linkedin'});"><i class="fa fa-linkedin"></i></a>
+		<a class="play6 btn btn-default share email" title="Email" target="_blank" href="mailto:?Subject=Learning Opens Doors&Body=Energy Goes Far https://youtu.be/On-qdPm11Xw" onclick="gtag('event', 'click', {'event_category' : 'share', 'event_label' : 'email'});"><i class="fa fa-envelope"></i></a>
+		
 		</header>
 		<div class="content">
 			<div class="row">
@@ -53,5 +73,8 @@
 		  <div class="start"></div>
 		</main>
     </div>
+	  
+	  
+		
   </body>
 </html>

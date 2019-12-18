@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ALIEN BOMB ================================================================
   function alienBomb() {
     let bombIndex = alienArray[Math.floor(Math.random() * alienArray.length)]
-    alienBombAudio()
+    //alienBombAudio()
 
     const alienBombMovementId = setInterval(() => {
       bombIndex = drawBullet(bombIndex, width, 'bomb')
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (gameInPlay) livesLeft--
     if (livesLeft !== 0) {
       livesId.innerText = livesLeft
-      loseLifeAudio()
+      //loseLifeAudio()
     } else {
       livesId.innerText = 0 // cheat here and use 0? sometimes lives keeps going below 0
       gameOver('<img src="./assets/images/end.png">')//lose
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function gameOver(message) {
     gameInPlay = false
-    gameOverAudio()
+    //gameOverAudio()
     clearInterval(alienBombId)
     alienBombId = null
     clearInterval(moveAliensTimerId)
@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // USER BULLET ===============================================================
   document.addEventListener('keydown', (e) => {
     if(e.keyCode === 32) {
-      bulletAudio()
+      //bulletAudio()
       fire()
     }
   })
@@ -254,7 +254,19 @@ document.addEventListener('DOMContentLoaded', () => {
   
 
 })
-
+window.onload=function(){
+  	var button = document.getElementById("button");
+	var audio = document.getElementById("player");
+	button.addEventListener("click", function(){
+	  if(audio.paused){
+		audio.play();
+		button.innerHTML = "<i class='fa fa-volume-up'></i>";
+	  } else {
+		audio.pause();
+		button.innerHTML = "<i class='fa fa-volume-off'></i>";
+	  }
+	});
+}
 
 
 $(function(){
@@ -263,13 +275,17 @@ $(function(){
 		$('.start-screen').hide();
 		$('.full-bg').addClass('bg');
 		$('.text1').typeIt({
-			 strings: [
-				 'In 2011 Turner Industries worked together with a small company called Industrial Mobility, a pioneer in process management technology, at a client facility in south Texas.'
-			 ],
 			 speed: 50,
 			 autoStart: false,
 			 loop: false,
 			 breakLines: false
 		});
+		$("#player").get(0).play();
 	});
 });
+
+
+
+
+
+	
