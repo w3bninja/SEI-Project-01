@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
     currentAlienMove++     // increment currentMove
     if (currentAlienMove === alienMovement.length) currentAlienMove = 0
     if (alienArray.some(alien => alien >= 210)) {
-      gameOver('<img src="./assets/images/game-over.gif" class="img-responsive"><div>Thanks for helping us protect the galaxy from Badvertising. Know that when faced with yawn-inducing messaging and design, Red Six Media is Just a CLICK away.</div>')//lose
+      gameOver('<img src="./assets/images/game-over.gif" class="img-responsive"><div>Captain Munchkin appreciates your attempt to help her rid the galaxy of BADvertisements. Click PLAY AGAIN to sharpen your skills and have a Merry Sixmas!</div>')//lose
     }
     // let bottomAliens = alienArray.slice(20)
   }
@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
       //loseLifeAudio()
     } else {
       livesId.innerText = 0 // cheat here and use 0? sometimes lives keeps going below 0
-      gameOver('<img src="./assets/images/game-over.gif" class="img-responsive"><div>Thanks for helping us protect the galaxy from Badvertising. Know that when faced with yawn-inducing messaging and design, Red Six Media is Just a CLICK away.</div>')//lose
+      gameOver('<img src="./assets/images/game-over.gif" class="img-responsive"><div>Captain Munchkin appreciates your attempt to help her rid the galaxy of BADvertisements. Click PLAY AGAIN to sharpen your skills and have a Merry Sixmas!</div>')//lose
     }
   }
 
