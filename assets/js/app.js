@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     audio = document.querySelector('audio'),
 	header = document.querySelector('header'),
 	content = document.querySelector('.content'),
+	bgremove = document.querySelector('.full-bg'),
     width = 15,
     alienStart = [0,1,2,3,4,5,6,7,8,9,10,15,16,17,18,19,20,21,22,23,24,25,30,31,32,33,34,35,36,37,38,39,40],
     alienMovement = [1,1,1,1,width,-1,-1,-1,-1,width],
@@ -39,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     start.classList.add('hidden')
 	website.classList.add('hidden')
 	content.classList.add('hidden')
+	bgremove.classList.remove('bg-remove')
     currentAlienMove = 0
     alienArray = alienStart.slice()
     createAlien()
@@ -168,6 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	website.classList.remove('hidden')
     scoreId.classList.remove('hidden')
     livesId.classList.remove('hidden')
+	bgremove.classList.add('bg-remove')
     // livesLeft = 0
     livesId.innerText = livesLeft
   }
