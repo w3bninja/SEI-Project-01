@@ -220,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
         alienDeath(bulletIndex)
         updateScore()
         if (alienArray.length === 0) {
-          gameOver('<img src="./assets/images/winner.gif" class="img-responsive"><div>Thanks for helping us protect the galaxy from Badvertising. Know that when faced with yawn-inducing messaging and design, Red Six Media is Just a CLICK away.</div>')
+          gameOver('<img src="./assets/images/winner.gif" class="img-responsive"><div>Thanks for helping us protect the galaxy from Badvertising. Know that when faced with yawn-inducing messaging and design, Red Six Media is Just a CLICK away. Have a Merry Sixmas!</div>')
         }
       }
       collision(bulletIndex, 'ceiling', 'bullet', bulletIntervalId)
