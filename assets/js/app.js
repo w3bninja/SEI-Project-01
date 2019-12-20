@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     livesText = document.querySelector('.lives'),
     endMessage = document.querySelector('.endMessage'),
     start = document.querySelector('.start'),
+	website = document.querySelector('.website'),
     audio = document.querySelector('audio'),
 	header = document.querySelector('header'),
 	content = document.querySelector('.content'),
@@ -23,7 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
     alienBombMovementId,
     alienBombId
 
-  start.innerText = 'Play game'
+  	start.innerHTML = '<img src="./assets/images/play.png">'
+	website.innerHTML = '<a href="https://redsixmedia.com">Visit our Website</a>'
 
   // Start game function
   function gameInit() {
@@ -35,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     livesText.classList.remove('hidden')
 	header.classList.remove('hidden')
     start.classList.add('hidden')
+	website.classList.add('hidden')
 	content.classList.add('hidden')
     currentAlienMove = 0
     alienArray = alienStart.slice()
@@ -109,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
     currentAlienMove++     // increment currentMove
     if (currentAlienMove === alienMovement.length) currentAlienMove = 0
     if (alienArray.some(alien => alien >= 210)) {
-      gameOver('<img src="./assets/images/end.png">')//lose
+      gameOver('<img src="./assets/images/game-over.gif" class="img-responsive"><div>Thanks for helping us protect the galaxy from Badvertising. Know that when faced with yawn-inducing messaging and design, Red Six Media is Just a CLICK away.</div>')//lose
     }
     // let bottomAliens = alienArray.slice(20)
   }
@@ -138,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
       //loseLifeAudio()
     } else {
       livesId.innerText = 0 // cheat here and use 0? sometimes lives keeps going below 0
-      gameOver('<img src="./assets/images/end.png">')//lose
+      gameOver('<img src="./assets/images/game-over.gif" class="img-responsive"><div>Thanks for helping us protect the galaxy from Badvertising. Know that when faced with yawn-inducing messaging and design, Red Six Media is Just a CLICK away.</div>')//lose
     }
   }
 
@@ -160,8 +163,9 @@ document.addEventListener('DOMContentLoaded', () => {
     endMessage.innerHTML = message
     grid.classList.add('hidden')
 	header.classList.add('hidden')
-    start.innerText = 'Play game'
+    start.innerHTML = '<img src="./assets/images/play.png">'
     start.classList.remove('hidden')
+	website.classList.remove('hidden')
     scoreId.classList.remove('hidden')
     livesId.classList.remove('hidden')
     // livesLeft = 0
@@ -213,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
         alienDeath(bulletIndex)
         updateScore()
         if (alienArray.length === 0) {
-          gameOver('<img src="./assets/images/end.png">')
+          gameOver('<img src="./assets/images/winner.gif" class="img-responsive"><div>Thanks for helping us protect the galaxy from Badvertising. Know that when faced with yawn-inducing messaging and design, Red Six Media is Just a CLICK away.</div>')
         }
       }
       collision(bulletIndex, 'ceiling', 'bullet', bulletIntervalId)
