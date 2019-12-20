@@ -53,7 +53,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#05293a', end
 
 .text1{padding:40px 100px 40px 80px; font-size:0.8em; color:#FFF;}
 
-.grid {height:500px; width:500px; margin:0 auto; display:flex; align-items:center; flex-wrap:wrap; justify-content:center; margin-bottom: 50px; border-bottom:3px solid #01fe01;}
+.grid {height:500px; width:500px; margin:0 auto; display:flex; align-items:center; flex-wrap:wrap; justify-content:center; margin-bottom: 50px; border-bottom:3px solid red;}
 .grid div {flex-grow:1; height:5.67%; width:5.66%; margin:2px; background-size:contain; background-position:center; background-repeat:no-repeat;}
 
 
@@ -77,6 +77,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#05293a', end
 .social{position:absolute; bottom:0; left:0; padding:20px; font-size:1.5em; z-index:9;}
 
 .mobile{display:none;}
+
+.sixmas, .santa{position:absolute!important; z-index:99;}
+.sixmas{bottom:30px; left:100px; max-width:300px;}
+.santa{top:30px; right:100px; max-width:300px;}
 
 @-webkit-keyframes spaceboots {
    0% { -webkit-transform: translate(2px, 1px) rotate(0deg); }
