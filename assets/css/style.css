@@ -61,8 +61,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#05293a', end
 .activeAlien {background-image:url('../images/alienimage.png');}
 .spaceship {background-image:url('../images/userspaceshipone.png'); height:20.67%!important; width:5.67%!important; background-size: 217%;}
 .bullet {background-image:url('../images/userbulletone.png');}
-.bomb {background-image:url('../images/rocket.png');}
-.score, .lives {display:inline-block; width:150px; font-size:20px; color:white;}
+.bomb {background-image:url('../images/rocket.png'); background-size: contain; width:20px;}
+.score, .lives {display:inline-block; width:150px; font-size:20px; white-space:nowrap; color:white;}
 .lives {float: right; text-align: right;}
 .endMessage {width:90%; max-width:800px; margin:0 auto; color:#FFF;  line-height:30px; text-align:center; margin-top:20px;}
 .start {color:white; font-size:30px; text-align:center; margin-top:30px; font-weight:bold;}
